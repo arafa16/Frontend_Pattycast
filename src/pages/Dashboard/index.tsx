@@ -1,25 +1,26 @@
-import Lucide from "../../base-components/Lucide";
-import Tippy from "../../base-components/Tippy";
-import { Menu, Tab } from "../../base-components/Headless";
-import Button from "../../base-components/Button";
-import Litepicker from "../../base-components/Litepicker";
-import fakerData from "../../utils/faker";
-import { useState } from "react";
-import clsx from "clsx";
+import React, {useEffect, useState} from "react";
 import _ from "lodash";
-
-import { FormCheck, FormInput } from "../../base-components/Form";
 import Data from "./attribute/data";
 import Informasi from "./attribute/informasi";
+import axios from "axios";
 
 function Main() {
-  
+  const [pengajuans, setPengajuan] = useState([]);
+
+  useEffect(()=>{
+    getPengajuan();
+  },[]);
+
+  const getPengajuan = async() => {
+    const response = await axios.get(import.meta.env.VITE_REACT_APP_API_URL+"/pengajuans");
+    setPengajuan(response.data);
+  }
 
   return (
     <div className="grid grid-cols-12 gap-6">
       <div className="col-span-12 2xl:col-span-9">
         <Informasi />
-        <Data />
+        <Data dataPengajuans={pengajuans} />
       </div>
     </div>
   );

@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getMe, LogOut, reset} from "../../stores/features/authSlice";
-import {redirect, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import Lucide from "../../base-components/Lucide";
 import Breadcrumb from "../../base-components/Breadcrumb";
-import { FormInput } from "../../base-components/Form";
-import { Menu, Popover, Dialog } from "../../base-components/Headless";
+import { Menu } from "../../base-components/Headless";
 import fakerData from "../../utils/faker";
 import _ from "lodash";
-import clsx from "clsx";
 
 function Main(props: { toggleMobileMenu: (event: React.MouseEvent) => void }) {
   const [searchResultModal, setSearchResultModal] = useState(false);

@@ -1,14 +1,17 @@
 import React from "react";
 import Lucide from "../../../base-components/Lucide";
-import { Menu, Tab } from "../../../base-components/Headless";
 import Button from "../../../base-components/Button";
-import fakerData from "../../../utils/faker";
+import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import _ from "lodash";
+import dayjs from "dayjs";
 
 import { FormCheck, FormInput } from "../../../base-components/Form";
 
-const Data = () => {
+const Data = (props) => {
+    const {dataPengajuans} = props;
+    const navigate = useNavigate();
+
     return (
         <>
             {/* BEGIN: Sales Report */}
@@ -31,8 +34,8 @@ const Data = () => {
                 {/* BEGIN: Inbox Content */}
                 <div className="col-span-12 xl:col-span-8 2xl:col-span-10">
                 <div className="flex flex-wrap items-center px-5 pt-5 pb-5 mb-4 border-b gap-y-3 border-slate-200/60 dark:border-darkmode-400">
-                    <Button variant="outline-secondary" className="mr-6">
-                    <Lucide icon="Users" className="w-4 h-4 mr-2" /> Create New
+                    <Button onClick={()=>{navigate('/formPengajuan')}} variant="outline-secondary" className="mr-6">
+                    <Lucide icon="Edit3" className="w-4 h-4 mr-2" /> Create New
                     </Button>
                     <div className="w-[500px] relative">
                     <FormInput
@@ -48,7 +51,7 @@ const Data = () => {
                 </div>
                 <div className="flex flex-col-reverse px-5 pb-4 border-b sm:flex-row text-slate-500 border-slate-200/60">
                     <div className="flex items-center px-5 pt-5 mt-3 -mx-5 border-t sm:mt-0 sm:border-0 border-slate-200/60 sm:pt-0 sm:mx-0 sm:px-0">
-                    <FormCheck.Input
+                    {/* <FormCheck.Input
                         className="border-slate-400 checked:border-primary"
                         type="checkbox"
                     />
@@ -64,8 +67,8 @@ const Data = () => {
                         <Menu.Item>Starred</Menu.Item>
                         <Menu.Item>Unstarred</Menu.Item>
                         </Menu.Items>
-                    </Menu>
-                    <a
+                    </Menu> */}
+                    {/* <a
                         href="#"
                         className="flex items-center justify-center w-5 h-5 ml-5"
                     >
@@ -76,10 +79,10 @@ const Data = () => {
                         className="flex items-center justify-center w-5 h-5 ml-5"
                     >
                         <Lucide icon="MoreHorizontal" className="w-4 h-4" />
-                    </a>
+                    </a> */}
                     </div>
                     <div className="flex items-center sm:ml-auto">
-                    <div className="">1 - 50 of 5,238</div>
+                    <div className="">1 - 50 of {dataPengajuans.length}</div>
                     <a
                         href="#"
                         className="flex items-center justify-center w-5 h-5 ml-5"
@@ -101,72 +104,29 @@ const Data = () => {
                     </div>
                 </div>
                 <div className="overflow-x-auto sm:overflow-x-visible">
-                    {fakerData.map((faker, fakerKey) => (
-                    <div key={fakerKey} className="intro-y">
+                    {dataPengajuans.map((data, index) => (
+                    <div key={index} className="intro-y">
                         <div
                         className={clsx([
                             "transition duration-200 ease-in-out transform cursor-pointer inline-block sm:block border-b border-slate-200/60 dark:border-darkmode-400",
                             "hover:scale-[1.02] hover:relative hover:z-20 hover:shadow-md hover:border-0 hover:rounded",
-                            !faker.trueFalse[0] &&
-                            "bg-slate-100 text-slate-600 dark:text-slate-500 dark:bg-darkmode-400/70",
-                            faker.trueFalse[0] &&
-                            "bg-white text-slate-800 dark:text-slate-300 dark:bg-darkmode-600",
                         ])}
                         >
-                        <div className="flex px-5 py-3">
-                            <div className="flex items-center flex-none mr-5 w-72">
-                            <FormCheck.Input
-                                className="flex-none border-slate-400 checked:border-primary"
-                                type="checkbox"
-                                checked={!faker.trueFalse[0]}
-                                onChange={() => {}}
-                            />
-                            <a
-                                href="#"
-                                className="flex items-center justify-center flex-none w-5 h-5 ml-4 text-slate-400"
-                            >
-                                <Lucide icon="Star" className="w-4 h-4" />
-                            </a>
-                            <a
-                                href="#"
-                                className="flex items-center justify-center flex-none w-5 h-5 ml-2 text-slate-400"
-                            >
-                                <Lucide icon="Bookmark" className="w-4 h-4" />
-                            </a>
-                            <div className="relative flex-none w-6 h-6 ml-5 image-fit">
-                                <img
-                                alt="Midone Tailwind HTML Admin Template"
-                                className="rounded-full"
-                                src={faker.photos[0]}
-                                />
+                        <div className="flex justify-around px-5 py-3">
+                            <div className="truncate sm:w-auto">
+                                {data.id}
                             </div>
-                            <div
-                                className={clsx([
-                                "ml-3 truncate",
-                                faker.trueFalse[0] && "font-medium",
-                                ])}
-                            >
-                                {faker.users[0].name}
+                            <div className="truncate sm:w-auto">
+                                {data.user.name}
                             </div>
+                            <div className="truncate sm:w-auto">
+                                {data.type_pengajuan.name}
                             </div>
-                            <div className="w-64 truncate sm:w-auto">
-                            <span
-                                className={clsx([
-                                "ml-3 truncate",
-                                faker.trueFalse[0] && "font-medium",
-                                ])}
-                            >
-                                {faker.news[0].superShortContent}
-                            </span>
-                            {faker.news[0].shortContent}
+                            <div className="truncate sm:w-auto">
+                                {data.status.name}
                             </div>
-                            <div
-                            className={clsx([
-                                "pl-10 ml-auto whitespace-nowrap",
-                                faker.trueFalse[0] && "font-medium",
-                            ])}
-                            >
-                            {faker.times[0]}
+                            <div>
+                                {dayjs(data.createdAt).format('YYYY-MM-DD HH:mm:ss')}
                             </div>
                         </div>
                         </div>

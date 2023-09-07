@@ -1,6 +1,7 @@
 import { useRoutes } from "react-router-dom";
 import Menu from "../layouts/SideMenu";
 import Dashboard from "../pages/Dashboard";
+import FormPengajuan from "../pages/Dashboard/FormPengajuan";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 
@@ -13,6 +14,10 @@ function Router() {
         {
           path: "/dashboard",
           element: <Dashboard />,
+        },
+        {
+          path: "/formPengajuan",
+          element: <FormPengajuan />,
         },
       ],
     },

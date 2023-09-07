@@ -3,7 +3,8 @@ import darkModeReducer from "./darkModeSlice";
 import colorSchemeReducer from "./colorSchemeSlice";
 import sideMenuReducer from "./sideMenuSlice";
 
-import authSlice from './features/authSlice.js';
+import authSlice from './features/authSlice.ts';
+import pengajuanSlice from "./features/pengajuanSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     colorScheme: colorSchemeReducer,
     sideMenu: sideMenuReducer,
     auth: authSlice,
+    pengajuanReducer: pengajuanSlice,
   },
 });
 
