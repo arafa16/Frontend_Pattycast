@@ -45,6 +45,69 @@ export const SubmitPengajuan = createAsyncThunk("pengajuans/submitPengajuan", as
     }
 });
 
+export const UpdatePengajuan = createAsyncThunk("pengajuans/UpdatePengajuan", async(pengajuans, thunkAPI) => {
+    console.log(pengajuans, "sampai di pengajuan");
+
+    try {
+        const response = await axios.patch(import.meta.env.VITE_REACT_APP_API_URL+'/pengajuans/'+pengajuans.id, {
+            tanggal: pengajuans.tanggal,
+            expense: pengajuans.expense,
+            advance: pengajuans.advance,
+            coa: pengajuans.coa,
+            costCenter: pengajuans.costCenter,
+            analiticAccount: pengajuans.analiticAccount,
+            debit: pengajuans.debit,
+            credit: pengajuans.credit,
+            typePengajuanId: pengajuans.typePengajuanId,
+            userId: pengajuans.userId,
+            statusId: pengajuans.statusId,
+        },{
+            withCredentials: true, // Now this is was the missing piece in the client side 
+        });
+        return response.data;
+    } catch (error) {
+        if(error.response){
+            const message = error.response.data.msg;
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+});
+
+export const GetPengajuan = createAsyncThunk("pengajuans/GetPengajuan", async(pengajuans, thunkAPI) => {
+    console.log(pengajuans, "sampai di pengajuan");
+
+    try {
+        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/pengajuans/${pengajuans.limit}&${pengajuans.page}&${pengajuans.type}&${pengajuans.status}&${pengajuans.search}`,{
+            withCredentials: true, // Now this is was the missing piece in the client side 
+        });
+        return response.data;
+    } catch (error) {
+        if(error.response){
+            const message = error.response.data.msg;
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+});
+
+export const GetPengajuanByUser = createAsyncThunk("pengajuans/GetPengajuanByUser", async(pengajuans, thunkAPI) => {
+   
+    const findUserLogin = await axios.get(import.meta.env.VITE_REACT_APP_API_URL+'/me',{
+        withCredentials: true, // Now this is was the missing piece in the client side 
+    });
+
+    try {
+        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/pengajuan/${findUserLogin.data.uuid}&${pengajuans.limit}&${pengajuans.page}/user`,{
+            withCredentials: true, // Now this is was the missing piece in the client side 
+        });
+        return response.data;
+    } catch (error) {
+        if(error.response){
+            const message = error.response.data.msg;
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+});
+
 export const pengajuanSlice = createSlice({
     name: "pengajuanReducer",
     initialState,
@@ -52,6 +115,7 @@ export const pengajuanSlice = createSlice({
         reset: (state) => initialState
     },
     extraReducers:(builder) => {
+        //submit pengajuan
         builder.addCase(SubmitPengajuan.pending, (state)=>{
             state.isPengajuanLoading = true;
         });
@@ -61,6 +125,51 @@ export const pengajuanSlice = createSlice({
             state.messagePengajuan = action.payload;
         });
         builder.addCase(SubmitPengajuan.rejected, (state, action)=>{
+            state.isPengajuanLoading = false;
+            state.isPengajuanError = true;
+            state.messagePengajuan = action.payload;
+        })
+
+        //submit pengajuan
+        builder.addCase(UpdatePengajuan.pending, (state)=>{
+            state.isPengajuanLoading = true;
+        });
+        builder.addCase(UpdatePengajuan.fulfilled, (state, action)=>{
+            state.isPengajuanLoading = false;
+            state.isPengajuanSuccess = true;
+            state.messagePengajuan = action.payload;
+        });
+        builder.addCase(UpdatePengajuan.rejected, (state, action)=>{
+            state.isPengajuanLoading = false;
+            state.isPengajuanError = true;
+            state.messagePengajuan = action.payload;
+        });
+
+        //get pengajuan
+        builder.addCase(GetPengajuan.pending, (state)=>{
+            state.isPengajuanLoading = true;
+        });
+        builder.addCase(GetPengajuan.fulfilled, (state, action)=>{
+            state.isPengajuanLoading = false;
+            state.isPengajuanSuccess = true;
+            state.pengajuans = action.payload;
+        });
+        builder.addCase(GetPengajuan.rejected, (state, action)=>{
+            state.isPengajuanLoading = false;
+            state.isPengajuanError = true;
+            state.messagePengajuan = action.payload;
+        })
+
+        //get pengajuan by user
+        builder.addCase(GetPengajuanByUser.pending, (state)=>{
+            state.isPengajuanLoading = true;
+        });
+        builder.addCase(GetPengajuanByUser.fulfilled, (state, action)=>{
+            state.isPengajuanLoading = false;
+            state.isPengajuanSuccess = true;
+            state.pengajuans = action.payload;
+        });
+        builder.addCase(GetPengajuanByUser.rejected, (state, action)=>{
             state.isPengajuanLoading = false;
             state.isPengajuanError = true;
             state.messagePengajuan = action.payload;

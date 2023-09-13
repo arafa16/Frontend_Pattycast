@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { SubmitPengajuan, reset } from '../../../stores/features/pengajuanSlice';
+import { UpdatePengajuan, reset } from '../../../stores/features/pengajuanSlice';
+import dayjs from 'dayjs';
 
 import LoadingIcon from "../../../base-components/LoadingIcon";
 import Notification from "../../../base-components/Notification";
@@ -9,10 +10,11 @@ import { NotificationElement } from "../../../base-components/Notification";
 import Button from "../../../base-components/Button";
 import { FormInput, FormLabel, FormSelect } from "../../../base-components/Form";
 import Litepicker from "../../../base-components/Litepicker";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const Form = (props) => {
-    const {users, typePengajuan, statuses} = props;
+const FormUpdate = (props) => {
+    const {users, dataPengajuan, typePengajuan, statuses} = props;
+    const {id} = useParams();
 
     const [userId, setUserId] = useState<string>("");
     const [tanggal, setTanggal] = useState<string>("");
@@ -38,13 +40,32 @@ const Form = (props) => {
     const basicNonStickyNotification = useRef<NotificationElement>();
 
     useEffect(()=>{
+        setValue();
+    },[dataPengajuan]);
+
+    useEffect(()=>{
         if(isPengajuanSuccess && messagePengajuan){
             basicNonStickyNotification.current?.showToast();
             setMsg(messagePengajuan.msg);
             resetValue();
             dispatch(reset());
+            navigate('/dashboard');
         }
     },[isPengajuanSuccess, messagePengajuan])
+
+    const setValue = () => {
+        setUserId(dataPengajuan.userId);
+        setTanggal(dayjs(dataPengajuan.tanggal).format("YYYY-MM-DD"));
+        setExpense(dataPengajuan.expense);
+        setAdvance(dataPengajuan.advance);
+        setCoa(dataPengajuan.coa);
+        setCostCenter(dataPengajuan.costCenter);
+        setAnaliticAccount(dataPengajuan.analiticAccount);
+        setTypePengajuanId(dataPengajuan.typePengajuanId);
+        setDebit(dataPengajuan.debit);
+        setCredit(dataPengajuan.credit);
+        setStatusId(dataPengajuan.statusId);
+    }
 
     const resetValue = () => {
         setUserId("");
@@ -62,7 +83,8 @@ const Form = (props) => {
 
     const submitPengajuan = (e) => {
         e.preventDefault();
-        dispatch(SubmitPengajuan({
+        dispatch(UpdatePengajuan({
+            id,
             userId, 
             tanggal, 
             expense, 
@@ -81,7 +103,7 @@ const Form = (props) => {
     <div className="py-10 mt-5 intro-y box sm:py-20">
         <div className="px-5">
             <div className="text-lg font-medium text-center">
-                Form Petty Cash
+                Petty Cash | {dataPengajuan.id}
             </div>
         </div>
         {/* BEGIN: Basic Non Sticky Notification Content */}
@@ -141,7 +163,7 @@ const Form = (props) => {
                     <FormInput
                         id="expense"
                         type="text"
-                        value={expense}
+                        defaultValue={expense}
                         onChange={(e)=>setExpense(e.target.value)}
                         placeholder=""
                     />
@@ -151,7 +173,7 @@ const Form = (props) => {
                     <FormInput
                         id="advance"
                         type="text"
-                        value={advance}
+                        defaultValue={advance}
                         onChange={(e)=>setAdvance(e.target.value)}
                         placeholder=""
                     />
@@ -161,7 +183,7 @@ const Form = (props) => {
                     <FormInput
                         id="coa"
                         type="text"
-                        value={coa}
+                        defaultValue={coa}
                         onChange={(e)=>setCoa(e.target.value)}
                         placeholder=""
                     />
@@ -171,7 +193,7 @@ const Form = (props) => {
                     <FormInput
                         id="costCenter"
                         type="text"
-                        value={costCenter}
+                        defaultValue={costCenter}
                         onChange={(e)=>setCostCenter(e.target.value)}
                         placeholder=""
                     />
@@ -181,7 +203,7 @@ const Form = (props) => {
                     <FormInput
                         id="analiticAccount"
                         type="text"
-                        value={analiticAccount}
+                        defaultValue={analiticAccount}
                         onChange={(e)=>setAnaliticAccount(e.target.value)}
                         placeholder=""
                     />
@@ -205,7 +227,7 @@ const Form = (props) => {
                     <FormInput
                         id="debit"
                         type="text"
-                        value={debit}
+                        defaultValue={debit}
                         onChange={(e)=>setDebit(e.target.value)}
                         placeholder=""
                     />
@@ -215,7 +237,7 @@ const Form = (props) => {
                     <FormInput
                         id="credit"
                         type="text"
-                        value={credit}
+                        defaultValue={credit}
                         onChange={(e)=>setCredit(e.target.value)}
                         placeholder=""
                     />
@@ -249,4 +271,4 @@ const Form = (props) => {
   )
 }
 
-export default Form
+export default FormUpdate

@@ -18,8 +18,12 @@ const initialState: SideMenuState = {
   menu: [
     "START MENU",
     {
+      icon: "Activity",
+      pathname: "/pengajuan",
+      title: "Pengajuan",
+    },{
       icon: "Home",
-      title: "Dashboard",
+      title: "Dashboard Admin",
       subMenu: [
         {
           icon: "Activity",
