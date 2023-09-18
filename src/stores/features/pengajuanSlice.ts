@@ -30,6 +30,8 @@ export const SubmitPengajuan = createAsyncThunk("pengajuans/submitPengajuan", as
             analiticAccount: pengajuans.analiticAccount,
             debit: pengajuans.debit,
             credit: pengajuans.credit,
+            reference: pengajuans.reference,
+            keterangan: pengajuans.keterangan,
             typePengajuanId: pengajuans.typePengajuanId,
             userId: pengajuans.userId,
             statusId: pengajuans.statusId,
@@ -39,7 +41,8 @@ export const SubmitPengajuan = createAsyncThunk("pengajuans/submitPengajuan", as
         return response.data;
     } catch (error) {
         if(error.response){
-            const message = error.response.data.msg;
+            const message = error.response.data;
+            console.log(message);
             return thunkAPI.rejectWithValue(message);
         }
     }
@@ -58,6 +61,8 @@ export const UpdatePengajuan = createAsyncThunk("pengajuans/UpdatePengajuan", as
             analiticAccount: pengajuans.analiticAccount,
             debit: pengajuans.debit,
             credit: pengajuans.credit,
+            reference: pengajuans.reference,
+            keterangan: pengajuans.keterangan,
             typePengajuanId: pengajuans.typePengajuanId,
             userId: pengajuans.userId,
             statusId: pengajuans.statusId,
@@ -96,7 +101,7 @@ export const GetPengajuanByUser = createAsyncThunk("pengajuans/GetPengajuanByUse
     });
 
     try {
-        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/pengajuan/${findUserLogin.data.uuid}&${pengajuans.limit}&${pengajuans.page}/user`,{
+        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/pengajuan/${findUserLogin.data.uuid}&${pengajuans.limit}&${pengajuans.page}&${pengajuans.search}/user`,{
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;

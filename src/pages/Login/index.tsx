@@ -23,7 +23,7 @@ function Main() {
 
   useEffect(()=>{
     if(isSuccess){
-        navigate("/dashboard")
+        navigate("/pengajuan")
     }
     dispatch(reset());
   },[user, isSuccess, dispatch, navigate]);

@@ -24,6 +24,8 @@ const Form = (props) => {
     const [typePengajuanId, setTypePengajuanId] = useState<string>("");
     const [debit, setDebit] = useState<string>("");
     const [credit, setCredit] = useState<string>("");
+    const [reference, setReference] = useState<string>("");
+    const [keterangan, setKeterangan] = useState<string>("");
     const [statusId, setStatusId] = useState<string>("");
     const [msg, setMsg] = useState("");
     
@@ -57,6 +59,8 @@ const Form = (props) => {
         setTypePengajuanId("");
         setDebit("");
         setCredit("");
+        setReference("");
+        setKeterangan("");
         setStatusId("");
     }
 
@@ -72,6 +76,8 @@ const Form = (props) => {
             analiticAccount,
             debit,
             credit,
+            reference,
+            keterangan,
             typePengajuanId,
             statusId
         }));
@@ -113,6 +119,20 @@ const Form = (props) => {
                         <option></option>
                         {users.map((user, index)=>(
                             <option key={index} value={user.id}>{user.name}</option>
+                        ))}
+                    </FormSelect>
+                </div>
+                <div className="col-span-12 intro-y sm:col-span-6">
+                    <FormLabel htmlFor="input-wizard-5">Type Pengajuan</FormLabel>
+                    <FormSelect 
+                        value={typePengajuanId}
+                        required 
+                        onChange={(e)=>setTypePengajuanId(e.target.value)} 
+                        id="typePengajuanId"
+                        >
+                        <option></option>
+                        {typePengajuan.map((type, index)=>(
+                            <option key={index} value={type.id}>{type.name}</option>
                         ))}
                     </FormSelect>
                 </div>
@@ -187,20 +207,6 @@ const Form = (props) => {
                     />
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
-                    <FormLabel htmlFor="input-wizard-5">Type Pengajuan</FormLabel>
-                    <FormSelect 
-                        value={typePengajuanId}
-                        required 
-                        onChange={(e)=>setTypePengajuanId(e.target.value)} 
-                        id="typePengajuanId"
-                        >
-                        <option></option>
-                        {typePengajuan.map((type, index)=>(
-                            <option key={index} value={type.id}>{type.name}</option>
-                        ))}
-                    </FormSelect>
-                </div>
-                <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-6">Debit</FormLabel>
                     <FormInput
                         id="debit"
@@ -217,6 +223,26 @@ const Form = (props) => {
                         type="text"
                         value={credit}
                         onChange={(e)=>setCredit(e.target.value)}
+                        placeholder=""
+                    />
+                </div>
+                <div className="col-span-12 intro-y sm:col-span-6">
+                    <FormLabel htmlFor="input-wizard-6">Reference</FormLabel>
+                    <FormInput
+                        id="reference"
+                        type="text"
+                        value={reference}
+                        onChange={(e)=>setReference(e.target.value)}
+                        placeholder=""
+                    />
+                </div>
+                <div className="col-span-12 intro-y sm:col-span-6">
+                    <FormLabel htmlFor="input-wizard-6">Keterangan</FormLabel>
+                    <FormInput
+                        id="keterangan"
+                        type="text"
+                        value={keterangan}
+                        onChange={(e)=>setKeterangan(e.target.value)}
                         placeholder=""
                     />
                 </div>

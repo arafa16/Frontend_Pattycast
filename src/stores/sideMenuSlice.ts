@@ -28,7 +28,12 @@ const initialState: SideMenuState = {
         {
           icon: "Activity",
           pathname: "/dashboard",
-          title: "Dasboard",
+          title: "Data Pengajuan",
+        },
+        {
+          icon: "Activity",
+          pathname: "/dataUser",
+          title: "Data User",
         }
       ],
     },

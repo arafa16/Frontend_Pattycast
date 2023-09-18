@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Main() {
   const [dataPengajuans, setDataPengajuan] = useState([]);
+  const [dataPengajuanAll, setDataPengajuanAll] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const [type, setType] = useState(0);
@@ -21,6 +22,9 @@ function Main() {
   //status pengajuan
   const [dataStatus, setDataStatus] = useState([]);
 
+  //type pengajuans
+  const [typePengajuans, setTypePengajuans] = useState([]);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,12 +32,13 @@ function Main() {
       (state) => state.pengajuanReducer
   );
 
-  //type pengajuans
-  const [typePengajuans, setTypePengajuans] = useState([]);
-
   useEffect(()=>{
     getPengajuan();
   },[limit, page, type, status, search]);
+
+  useEffect(()=>{
+    getPengajuanAll();
+  },[]);
 
   useEffect(()=>{
     setDataPengajuan(pengajuans && pengajuans.rows);
@@ -50,6 +55,13 @@ function Main() {
   //ngambil data pengajuan
   const getPengajuan = async() => {
     dispatch(GetPengajuan({limit, page, type, status, search}));
+  }
+
+  const getPengajuanAll = async() => {
+      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/pengajuans`,{
+        withCredentials: true, // Now this is was the missing piece in the client side 
+      });
+      setDataPengajuanAll(response.data);
   }
 
   const getStatus = async() => {
@@ -89,12 +101,12 @@ function Main() {
   const changeType = (id) => {
     setType(id)
     setPage(1);
+    setStatus(0)
   }
 
   const changeStatus = (id) => {
     setStatus(id);
     setPage(1);
-    setType(0);
   }
 
   const changeSearch = (code) => {
@@ -107,22 +119,23 @@ function Main() {
     <div className="grid grid-cols-12 gap-6">
       <div className="col-span-12 2xl:col-span-12">
         <Informasi 
-        dataStatus={dataStatus}
-        changeStatus={changeStatus}
-        status={status}
+        typePengajuans={typePengajuans}
+        dataPengajuanAll={dataPengajuanAll}
+        changeType={changeType}
+        type={type}
         />
         <Data 
           dataPengajuans={dataPengajuans} 
           limit={limit} 
           page={page}
-          type={type}
+          status={status}
           loading={isPengajuanLoading} 
           allPage={allPage}
           nextPage={nextPage}
           prevPage={prevPage} 
           allData={allData}
-          typePengajuans={typePengajuans}
-          changeType={changeType}
+          dataStatus={dataStatus}
+          changeStatus={changeStatus}
           changeSearch={changeSearch}
           search={search}
           />

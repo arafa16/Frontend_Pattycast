@@ -11,6 +11,7 @@ const Main = () => {
   const [page, setPage] = useState(1);
   const [allPage, setAllPage] = useState(0);
   const [allData, setAllData] = useState(0);
+  const [search, setSearch] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Main = () => {
 
   useEffect(()=>{
     getPengajuan();
-  },[limit, page]);
+  },[limit, page, search]);
 
   useEffect(()=>{
     setDataPengajuans(pengajuans && pengajuans.rows);
@@ -36,34 +37,38 @@ const Main = () => {
   },[isPengajuanSuccess, isPengajuanLoading, isPengajuanError]);
 
   const getPengajuan = () => {
-    dispatch(GetPengajuanByUser({limit, page}));
+    dispatch(GetPengajuanByUser({limit, page, search}));
   }
 
-    //hitung total page
-    const countPage = (jmlData) => {
-      const total = jmlData/limit;
-      setAllPage(Math.ceil(total));
-    }
+  //hitung total page
+  const countPage = (jmlData) => {
+    const total = jmlData/limit;
+    setAllPage(Math.ceil(total));
+  }
 
-    const nextPage = () => {
-      const count = page + 1;
-      if(count <= allPage){
-        setPage(count);
-      }
+  const nextPage = () => {
+    const count = page + 1;
+    if(count <= allPage){
+      setPage(count);
     }
-  
-    const prevPage = () => {
-      const count = page - 1;
-      if(count > 0){
-        setPage(count);
-      }
-    }
+  }
 
-  console.log(dataPengajuans, 'pengajuan');
+  const prevPage = () => {
+    const count = page - 1;
+    if(count > 0){
+      setPage(count);
+    }
+  }
+
+  const changeSearch = (code) => {
+    setSearch(code);
+    setPage(1);
+    setType(0);
+  }
 
   return (
     <div className="grid grid-cols-12 gap-6">
-      <div className="col-span-8 2xl:col-span-8">
+      <div className="col-span-12 2xl:col-span-12">
         <Data 
           dataPengajuans={dataPengajuans}
           page={page}
@@ -71,7 +76,9 @@ const Main = () => {
           allPage={allPage}
           allData={allData}
           nextPage={nextPage}
-          prevPage={prevPage} 
+          prevPage={prevPage}
+          changeSearch={changeSearch}
+          search={search} 
         />
       </div>
     </div>

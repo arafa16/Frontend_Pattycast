@@ -13,13 +13,10 @@ import Litepicker from "../../../base-components/Litepicker";
 import { useNavigate, useParams } from 'react-router-dom';
 
 const FormUpdate = (props) => {
-    const {users, dataPengajuan, typePengajuan, statuses} = props;
+    const {users, dataPengajuan, typePengajuan} = props;
     const {id} = useParams();
 
-    const [userId, setUserId] = useState<string>("");
     const [tanggal, setTanggal] = useState<string>("");
-    const [expense, setExpense] = useState<string>("");
-    const [advance, setAdvance] = useState<string>("");
     const [coa, setCoa] = useState<string>("");
     const [costCenter, setCostCenter] = useState<string>("");
     const [analiticAccount, setAnaliticAccount] = useState<string>("");
@@ -28,7 +25,6 @@ const FormUpdate = (props) => {
     const [credit, setCredit] = useState<string>("");
     const [reference, setReference] = useState<string>("");
     const [keterangan, setKeterangan] = useState<string>("");
-    const [statusId, setStatusId] = useState<string>("");
     const [msg, setMsg] = useState("");
     
     const navigate = useNavigate();
@@ -51,15 +47,18 @@ const FormUpdate = (props) => {
             setMsg(messagePengajuan.msg);
             resetValue();
             dispatch(reset());
-            navigate('/dashboard');
+            navigate('/pengajuan');
+        }
+        if(isPengajuanError && messagePengajuan){
+            basicNonStickyNotification.current?.showToast();
+            setMsg(messagePengajuan.msg);
+            resetValue();
+            dispatch(reset());
         }
     },[isPengajuanSuccess, messagePengajuan])
 
     const setValue = () => {
-        setUserId(dataPengajuan.userId);
         setTanggal(dayjs(dataPengajuan.tanggal).format("YYYY-MM-DD"));
-        setExpense(dataPengajuan.expense);
-        setAdvance(dataPengajuan.advance);
         setCoa(dataPengajuan.coa);
         setCostCenter(dataPengajuan.costCenter);
         setAnaliticAccount(dataPengajuan.analiticAccount);
@@ -68,14 +67,10 @@ const FormUpdate = (props) => {
         setCredit(dataPengajuan.credit);
         setReference(dataPengajuan.reference);
         setKeterangan(dataPengajuan.keterangan);
-        setStatusId(dataPengajuan.statusId);
     }
 
     const resetValue = () => {
-        setUserId("");
         setTanggal("");
-        setExpense("");
-        setAdvance("");
         setCoa("");
         setCostCenter("");
         setAnaliticAccount("");
@@ -84,17 +79,13 @@ const FormUpdate = (props) => {
         setCredit("");
         setReference("");
         setKeterangan("");
-        setStatusId("");
     }
 
     const submitPengajuan = (e) => {
         e.preventDefault();
         dispatch(UpdatePengajuan({
             id,
-            userId, 
-            tanggal, 
-            expense, 
-            advance, 
+            tanggal,
             coa, 
             costCenter,
             analiticAccount,
@@ -103,17 +94,11 @@ const FormUpdate = (props) => {
             reference,
             keterangan,
             typePengajuanId,
-            statusId
         }));
     }
 
   return (
-    <div className="py-10 mt-5 intro-y box sm:py-20">
-        <div className="px-5">
-            <div className="text-lg font-medium text-center">
-                Petty Cash | {dataPengajuan.id}
-            </div>
-        </div>
+    <>
         {/* BEGIN: Basic Non Sticky Notification Content */}
             <Notification
               getRef={(el) => {
@@ -133,34 +118,6 @@ const FormUpdate = (props) => {
             <form onSubmit={submitPengajuan}>
             <div className="grid grid-cols-12 gap-4 mt-5 gap-y-5">
                 <div className="col-span-12 intro-y sm:col-span-6">
-                    <FormLabel htmlFor="input-wizard-1">User</FormLabel>
-                    <FormSelect 
-                        value={userId} 
-                        onChange={(e)=>setUserId(e.target.value)} 
-                        id="input-wizard-6"
-                        required
-                        >
-                        <option></option>
-                        {users.map((user, index)=>(
-                            <option key={index} value={user.id}>{user.name}</option>
-                        ))}
-                    </FormSelect>
-                </div>
-                <div className="col-span-12 intro-y sm:col-span-6">
-                    <FormLabel htmlFor="input-wizard-5">Type Pengajuan</FormLabel>
-                    <FormSelect 
-                        value={typePengajuanId}
-                        required 
-                        onChange={(e)=>setTypePengajuanId(e.target.value)} 
-                        id="typePengajuanId"
-                        >
-                        <option></option>
-                        {typePengajuan.map((type, index)=>(
-                            <option key={index} value={type.id}>{type.name}</option>
-                        ))}
-                    </FormSelect>
-                </div>
-                <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-2">Tanggal</FormLabel>
                     <Litepicker 
                         value={tanggal}
@@ -178,26 +135,6 @@ const FormUpdate = (props) => {
                           format:"YYYY-MM-DD"
                         }}
                         className="pl-4"
-                    />
-                </div>
-                <div className="col-span-12 intro-y sm:col-span-6">
-                    <FormLabel htmlFor="input-wizard-3">Expense</FormLabel>
-                    <FormInput
-                        id="expense"
-                        type="text"
-                        defaultValue={expense}
-                        onChange={(e)=>setExpense(e.target.value)}
-                        placeholder=""
-                    />
-                </div>
-                <div className="col-span-12 intro-y sm:col-span-6">
-                    <FormLabel htmlFor="input-wizard-3">Advance</FormLabel>
-                    <FormInput
-                        id="advance"
-                        type="text"
-                        defaultValue={advance}
-                        onChange={(e)=>setAdvance(e.target.value)}
-                        placeholder=""
                     />
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
@@ -231,6 +168,20 @@ const FormUpdate = (props) => {
                     />
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
+                    <FormLabel htmlFor="input-wizard-5">Type Pengajuan</FormLabel>
+                    <FormSelect 
+                        value={typePengajuanId}
+                        required 
+                        onChange={(e)=>setTypePengajuanId(e.target.value)} 
+                        id="typePengajuanId"
+                        >
+                        <option></option>
+                        {typePengajuan.map((type, index)=>(
+                            <option key={index} value={type.id}>{type.name}</option>
+                        ))}
+                    </FormSelect>
+                </div>
+                <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-6">Debit</FormLabel>
                     <FormInput
                         id="debit"
@@ -255,7 +206,7 @@ const FormUpdate = (props) => {
                     <FormInput
                         id="reference"
                         type="text"
-                        value={reference}
+                        defaultValue={reference}
                         onChange={(e)=>setReference(e.target.value)}
                         placeholder=""
                     />
@@ -265,27 +216,13 @@ const FormUpdate = (props) => {
                     <FormInput
                         id="keterangan"
                         type="text"
-                        value={keterangan}
+                        defaultValue={keterangan}
                         onChange={(e)=>setKeterangan(e.target.value)}
                         placeholder=""
                     />
                 </div>
-                <div className="col-span-12 intro-y sm:col-span-6">
-                    <FormLabel htmlFor="input-wizard-5">Status</FormLabel>
-                    <FormSelect 
-                        value={statusId} 
-                        onChange={(e)=>setStatusId(e.target.value)} 
-                        required
-                        id="statusId"
-                        >
-                        <option></option>
-                        {statuses.map((status, index)=>(
-                            <option key={index} value={status.id}>{status.name}</option>
-                        ))}
-                    </FormSelect>
-                </div>
                 <div className="flex items-center justify-center col-span-12 mt-5 intro-y sm:justify-end">
-                    <Button type='reset' onClick={()=>{navigate(`/formAdminView/${id}`)}} variant="secondary" className="w-48 ml-2">
+                    <Button type='reset' onClick={()=>{navigate(`/formView/${id}`)}} variant="secondary" className="w-48 ml-2">
                         Cancel
                     </Button>
                     <Button type='submit' variant="primary" className="w-48 ml-2">
@@ -295,7 +232,7 @@ const FormUpdate = (props) => {
             </div>
             </form>
         </div>
-    </div>
+    </>
   )
 }
 
