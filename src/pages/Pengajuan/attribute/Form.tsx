@@ -12,15 +12,15 @@ import Litepicker from "../../../base-components/Litepicker";
 import { useNavigate } from 'react-router-dom';
 
 const Form = (props) => {
-    const {users, typePengajuan, status} = props;
+    const {users, typePengajuan, status, coa, costCenter, annaliticAccount} = props;
 
     const [userId, setUserId] = useState<string>("");
     const [tanggal, setTanggal] = useState<string>("");
     const [expense, setExpense] = useState<string>("");
     const [advance, setAdvance] = useState<string>("");
-    const [coa, setCoa] = useState<string>("");
-    const [costCenter, setCostCenter] = useState<string>("");
-    const [analiticAccount, setAnaliticAccount] = useState<string>("");
+    const [coaId, setCoaId] = useState<string>("");
+    const [costCenterId, setCostCenterId] = useState<string>("");
+    const [annaliticAccountId, setAnnaliticAccountId] = useState<string>("");
     const [typePengajuanId, setTypePengajuanId] = useState<string>("");
     const [debit, setDebit] = useState<string>("");
     const [credit, setCredit] = useState<string>("");
@@ -63,9 +63,9 @@ const Form = (props) => {
         setTanggal("");
         setExpense("");
         setAdvance("");
-        setCoa("");
-        setCostCenter("");
-        setAnaliticAccount("");
+        setCoaId("");
+        setCostCenterId("");
+        setAnnaliticAccountId("");
         setTypePengajuanId("");
         setDebit("");
         setCredit("");
@@ -81,9 +81,9 @@ const Form = (props) => {
             tanggal, 
             expense, 
             advance, 
-            coa, 
-            costCenter,
-            analiticAccount,
+            coaId, 
+            costCenterId,
+            annaliticAccountId,
             debit,
             credit,
             reference,
@@ -151,37 +151,46 @@ const Form = (props) => {
                             </FormSelect>
                         </div>
                         <div className="col-span-12 intro-y sm:col-span-6">
-                            <FormLabel htmlFor="input-wizard-4">CoA</FormLabel>
-                            <FormInput
-                                id="coa"
-                                type="text"
-                                value={coa}
+                            <FormLabel htmlFor="input-wizard-5">CoA</FormLabel>
+                            <FormSelect 
+                                value={coaId}
                                 required 
-                                onChange={(e)=>setCoa(e.target.value)}
-                                placeholder=""
-                            />
+                                onChange={(e)=>setCoaId(e.target.value)} 
+                                id="coaId"
+                                >
+                                <option></option>
+                                {coa.map((data, index)=>(
+                                    <option key={index} value={data.id}>{data.name}</option>
+                                ))}
+                            </FormSelect>
                         </div>
                         <div className="col-span-12 intro-y sm:col-span-6">
                             <FormLabel htmlFor="input-wizard-5">Cost Center</FormLabel>
-                            <FormInput
-                                id="costCenter"
-                                type="text"
-                                value={costCenter}
+                            <FormSelect 
+                                value={costCenterId}
                                 required 
-                                onChange={(e)=>setCostCenter(e.target.value)}
-                                placeholder=""
-                            />
+                                onChange={(e)=>setCostCenterId(e.target.value)} 
+                                id="costCenter"
+                                >
+                                <option></option>
+                                {costCenter.map((data, index)=>(
+                                    <option key={index} value={data.id}>{data.name}</option>
+                                ))}
+                            </FormSelect>
                         </div>
                         <div className="col-span-12 intro-y sm:col-span-6">
                             <FormLabel htmlFor="input-wizard-5">Analitic Account</FormLabel>
-                            <FormInput
-                                id="analiticAccount"
-                                type="text"
-                                value={analiticAccount}
+                            <FormSelect 
+                                value={annaliticAccountId}
                                 required 
-                                onChange={(e)=>setAnaliticAccount(e.target.value)}
-                                placeholder=""
-                            />
+                                onChange={(e)=>setAnnaliticAccountId(e.target.value)} 
+                                id="analiticAccountId"
+                                >
+                                <option></option>
+                                {annaliticAccount.map((data, index)=>(
+                                    <option key={index} value={data.id}>{data.name}</option>
+                                ))}
+                            </FormSelect>
                         </div>
                         <div className="col-span-12 intro-y sm:col-span-6">
                             <FormLabel htmlFor="input-wizard-6">Debit</FormLabel>

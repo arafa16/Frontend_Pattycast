@@ -8,11 +8,17 @@ function Main() {
     const [users, setUsers] = useState<array>([]);
     const [typePengajuan, setTypePengajuan] = useState<Array>([]);
     const [ statuses, setStatuses] = useState<Array>([])
+    const [coa, setCoa] = useState<Array>([]);
+    const [costCenter, setCostCenter] = useState<Array>([]);
+    const [annaliticAccount, setAnnaliticAccount] = useState<Array>([]);
 
     useEffect(()=>{
         getUser()
         getTypePengajuan();
         getStatus();
+        getCoa();
+        getCostCenter();
+        getAnnaliticAccount();
     },[])
 
     const getUser = async() => {
@@ -32,10 +38,32 @@ function Main() {
         setStatuses(response.data);
     }
 
+    const getCoa = async() => {
+      const response = await axios.get(import.meta.env.VITE_REACT_APP_API_URL+"/coa");
+      setCoa(response.data);
+    }
+  
+    const getCostCenter = async() => {
+      const response = await axios.get(import.meta.env.VITE_REACT_APP_API_URL+"/costCenter");
+      setCostCenter(response.data);
+    }
+  
+    const getAnnaliticAccount = async() => {
+      const response = await axios.get(import.meta.env.VITE_REACT_APP_API_URL+"/annaliticAccount");
+      setAnnaliticAccount(response.data);
+    }
+
   return (
     <div className="grid grid-cols-12 gap-6">
       <div className="col-span-12 2xl:col-span-9">
-        <Form users={users} typePengajuan={typePengajuan} statuses={statuses} />
+        <Form 
+          users={users} 
+          typePengajuan={typePengajuan} 
+          statuses={statuses}
+          coa={coa}
+          costCenter={costCenter}
+          annaliticAccount={annaliticAccount} 
+        />
       </div>
     </div>
   );

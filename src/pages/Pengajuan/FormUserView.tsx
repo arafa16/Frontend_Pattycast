@@ -7,11 +7,22 @@ import Status from "./attribute/Status";
 import Judul from "./attribute/Judul";
 import ButtonAction from "./attribute/ButtonAction";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { UpdatePengajuan, reset } from '../../stores/features/pengajuanSlice';
+import { useNavigate } from "react-router-dom";
+
 function Main() {
     const {id} = useParams();
     const [dataPengajuan, setDataPengajuan] = useState<Array>([]);
-    const [status, setStatus] = useState<Array>([]);
     const [statuses, setStatuses] = useState<Array>([]);
+    // const [statusId, setStatusId] = useState(2);
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const {pengajuans, isPengajuanError, isPengajuanSuccess, isPengajuanLoading, messagePengajuan } = useSelector(
+        (state) => state.pengajuanReducer
+    );
 
     useEffect(()=>{
         getDataPengajuan();
@@ -33,12 +44,21 @@ function Main() {
       setStatuses(response.data);
     }
 
+    const clickChangeStatus = (code) => {
+      const statusId = code;
+      dispatch(UpdatePengajuan({
+          id,
+          statusId
+      }));
+      getDataPengajuan();
+    }
+
   return (
     <div className="grid grid-cols-12 gap-6">
-      <div className="col-span-12 2xl:col-span-9">
+      <div className="col-span-12 2xl:col-span-12">
         <div className="py-10 mt-5 intro-y box sm:py-20">
           <Judul 
-            textJudul="Form Petty Cash"
+            textJudul={`Form Petty Cash | ${dataPengajuan.id}`}
           />
           <Status
             status={dataPengajuan.status && dataPengajuan.status.code}
@@ -48,6 +68,8 @@ function Main() {
             status={dataPengajuan.status && dataPengajuan.status.code}
             linkEdit={`/formUserUpdate/${id}`}
             linkBack={`/pengajuan`}
+            clickChangeStatus={clickChangeStatus}
+            isPengajuanLoading={isPengajuanLoading}
           />
           <FormView 
             dataPengajuan={dataPengajuan}

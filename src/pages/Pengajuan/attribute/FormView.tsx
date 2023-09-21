@@ -14,36 +14,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const FormUpdate = (props) => {
     const {dataPengajuan} = props;
-
-    const [tanggal, setTanggal] = useState<string>("");
-    const [coa, setCoa] = useState<string>("");
-    const [costCenter, setCostCenter] = useState<string>("");
-    const [analiticAccount, setAnaliticAccount] = useState<string>("");
-    const [typePengajuanId, setTypePengajuanId] = useState<string>("");
-    const [debit, setDebit] = useState<string>("");
-    const [credit, setCredit] = useState<string>("");
-    const [reference, setReference] = useState<string>("");
-    const [keterangan, setKeterangan] = useState<string>("");
     const [msg, setMsg] = useState("");
 
-      // Basic non sticky notification
-    const basicNonStickyNotification = useRef<NotificationElement>();
-
     useEffect(()=>{
-        setValue();
+
     },[dataPengajuan]);
 
-    const setValue = () => {
-        setTanggal(dayjs(dataPengajuan.tanggal).format("YYYY-MM-DD"));
-        setCoa(dataPengajuan.coa);
-        setCostCenter(dataPengajuan.costCenter);
-        setAnaliticAccount(dataPengajuan.analiticAccount);
-        setTypePengajuanId(dataPengajuan.type_pengajuan && dataPengajuan.type_pengajuan.name);
-        setDebit(dataPengajuan.debit);
-        setCredit(dataPengajuan.credit);
-        setReference(dataPengajuan.reference);
-        setKeterangan(dataPengajuan.keterangan);
-    }
+    // Basic non sticky notification
+    const basicNonStickyNotification = useRef<NotificationElement>();
 
   return (
     <>
@@ -67,39 +45,39 @@ const FormUpdate = (props) => {
             <div className="grid grid-cols-12 gap-4 mt-5 gap-y-5">
                 <div className="col-span-12 intro-y sm:col-span-6 flex justify-between">
                     <FormLabel htmlFor="input-wizard-2" className=' w-1/3'>Tanggal</FormLabel>
-                    <div className='w-2/3'>: {tanggal}</div>
+                    <div className='w-2/3'>: {dayjs(dataPengajuan && dataPengajuan.tanggal).format("YYYY-MM-DD")}</div>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6 flex justify-between">
                     <FormLabel htmlFor="input-wizard-4">CoA</FormLabel>
-                    <div className='w-2/3'>: {coa}</div>
+                    <div className='w-2/3'>: {dataPengajuan.coa && dataPengajuan.coa.name}</div>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6 flex justify-between">
                     <FormLabel htmlFor="input-wizard-5">Cost Center</FormLabel>
-                    <div className='w-2/3'>: {costCenter}</div>
+                    <div className='w-2/3'>: {dataPengajuan.cost_center && dataPengajuan.cost_center.name}</div>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6 flex justify-between">
                     <FormLabel htmlFor="input-wizard-5">Analitic Account</FormLabel>
-                    <div className='w-2/3'>: {analiticAccount}</div>
+                    <div className='w-2/3'>: {dataPengajuan.annalitic_account && dataPengajuan.annalitic_account.name}</div>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6 flex justify-between">
                     <FormLabel htmlFor="input-wizard-5">Type Pengajuan</FormLabel>
-                    <div className='w-2/3'>: {typePengajuanId}</div>
+                    <div className='w-2/3'>: {dataPengajuan.type_pengajuan && dataPengajuan.type_pengajuan.name}</div>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6 flex justify-between">
                     <FormLabel htmlFor="input-wizard-6">Debit</FormLabel>
-                    <div className='w-2/3'>: {debit}</div>
+                    <div className='w-2/3'>: {dataPengajuan && dataPengajuan.debit}</div>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6 flex justify-between">
                     <FormLabel htmlFor="input-wizard-6">Credit</FormLabel>
-                    <div className='w-2/3'>: {credit}</div>
+                    <div className='w-2/3'>: {dataPengajuan && dataPengajuan.credit}</div>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6 flex justify-between">
                     <FormLabel htmlFor="input-wizard-5">Reference</FormLabel>
-                    <div className='w-2/3'>: {reference}</div>
+                    <div className='w-2/3'>: {dataPengajuan && dataPengajuan.reference}</div>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6 flex justify-between">
                     <FormLabel htmlFor="input-wizard-6">Keterangan</FormLabel>
-                    <div className='w-2/3'>: {keterangan}</div>
+                    <div className='w-2/3'>: {dataPengajuan && dataPengajuan.keterangan}</div>
                 </div>
             </div>
         </div>

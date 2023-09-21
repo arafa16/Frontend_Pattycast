@@ -4,6 +4,7 @@ import colorSchemeReducer from "./colorSchemeSlice";
 import sideMenuReducer from "./sideMenuSlice";
 
 import authSlice from './features/authSlice.ts';
+import daftarSlice from "./features/daftarSlice";
 import pengajuanSlice from "./features/pengajuanSlice";
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
     colorScheme: colorSchemeReducer,
     sideMenu: sideMenuReducer,
     auth: authSlice,
+    daftar: daftarSlice,
     pengajuanReducer: pengajuanSlice,
   },
 });

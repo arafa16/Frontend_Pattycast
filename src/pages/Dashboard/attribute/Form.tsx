@@ -12,15 +12,15 @@ import Litepicker from "../../../base-components/Litepicker";
 import { useNavigate } from 'react-router-dom';
 
 const Form = (props) => {
-    const {users, typePengajuan, statuses} = props;
+    const {users, typePengajuan, statuses, coa, costCenter, annaliticAccount} = props;
 
     const [userId, setUserId] = useState<string>("");
     const [tanggal, setTanggal] = useState<string>("");
     const [expense, setExpense] = useState<string>("");
     const [advance, setAdvance] = useState<string>("");
-    const [coa, setCoa] = useState<string>("");
-    const [costCenter, setCostCenter] = useState<string>("");
-    const [analiticAccount, setAnaliticAccount] = useState<string>("");
+    const [coaId, setCoaId] = useState<string>("");
+    const [costCenterId, setCostCenterId] = useState<string>("");
+    const [annaliticAccountId, setAnnaliticAccountId] = useState<string>("");
     const [typePengajuanId, setTypePengajuanId] = useState<string>("");
     const [debit, setDebit] = useState<string>("");
     const [credit, setCredit] = useState<string>("");
@@ -45,6 +45,7 @@ const Form = (props) => {
             setMsg(messagePengajuan.msg);
             resetValue();
             dispatch(reset());
+            navigate('/dashboard');
         }
     },[isPengajuanSuccess, messagePengajuan])
 
@@ -53,9 +54,9 @@ const Form = (props) => {
         setTanggal("");
         setExpense("");
         setAdvance("");
-        setCoa("");
-        setCostCenter("");
-        setAnaliticAccount("");
+        setCoaId("");
+        setCostCenterId("");
+        setAnnaliticAccountId("");
         setTypePengajuanId("");
         setDebit("");
         setCredit("");
@@ -71,9 +72,9 @@ const Form = (props) => {
             tanggal, 
             expense, 
             advance, 
-            coa, 
-            costCenter,
-            analiticAccount,
+            coaId, 
+            costCenterId,
+            annaliticAccountId,
             debit,
             credit,
             reference,
@@ -177,34 +178,46 @@ const Form = (props) => {
                     />
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
-                    <FormLabel htmlFor="input-wizard-4">CoA</FormLabel>
-                    <FormInput
-                        id="coa"
-                        type="text"
-                        value={coa}
-                        onChange={(e)=>setCoa(e.target.value)}
-                        placeholder=""
-                    />
+                    <FormLabel htmlFor="input-wizard-5">CoA</FormLabel>
+                    <FormSelect 
+                        value={coaId}
+                        required 
+                        onChange={(e)=>setCoaId(e.target.value)} 
+                        id="coaId"
+                        >
+                        <option></option>
+                        {coa.map((data, index)=>(
+                            <option key={index} value={data.id}>{data.name}</option>
+                        ))}
+                    </FormSelect>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-5">Cost Center</FormLabel>
-                    <FormInput
+                    <FormSelect 
+                        value={costCenterId}
+                        required 
+                        onChange={(e)=>setCostCenterId(e.target.value)} 
                         id="costCenter"
-                        type="text"
-                        value={costCenter}
-                        onChange={(e)=>setCostCenter(e.target.value)}
-                        placeholder=""
-                    />
+                        >
+                        <option></option>
+                        {costCenter.map((data, index)=>(
+                            <option key={index} value={data.id}>{data.name}</option>
+                        ))}
+                    </FormSelect>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-5">Analitic Account</FormLabel>
-                    <FormInput
-                        id="analiticAccount"
-                        type="text"
-                        value={analiticAccount}
-                        onChange={(e)=>setAnaliticAccount(e.target.value)}
-                        placeholder=""
-                    />
+                    <FormSelect 
+                        value={annaliticAccountId}
+                        required 
+                        onChange={(e)=>setAnnaliticAccountId(e.target.value)} 
+                        id="analiticAccountId"
+                        >
+                        <option></option>
+                        {annaliticAccount.map((data, index)=>(
+                            <option key={index} value={data.id}>{data.name}</option>
+                        ))}
+                    </FormSelect>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-6">Debit</FormLabel>

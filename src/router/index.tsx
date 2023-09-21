@@ -9,6 +9,8 @@ import FormUserView from "../pages/Pengajuan/FormUserView";
 import FormUpdate from "../pages/Dashboard/FormUpdate";
 import Pengajuan from "../pages/Pengajuan";
 import DataUser from "../pages/Users/DataUser";
+import FormUserByAdmin from "../pages/Users/FormUser";
+import ViewUser from "../pages/Users/ViewUser";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 
@@ -51,6 +53,14 @@ function Router() {
         {
           path: "/dataUser",
           element: <DataUser />,
+        },
+        {
+          path: "/createUser",
+          element: <FormUserByAdmin />,
+        },
+        {
+          path: "/viewUser/:id",
+          element: <ViewUser />,
         }
       ],
     },

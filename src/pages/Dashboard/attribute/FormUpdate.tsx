@@ -13,23 +13,23 @@ import Litepicker from "../../../base-components/Litepicker";
 import { useNavigate, useParams } from 'react-router-dom';
 
 const FormUpdate = (props) => {
-    const {users, dataPengajuan, typePengajuan, statuses} = props;
+    const {users, dataPengajuan, typePengajuan, statuses, coa, costCenter, annaliticAccount} = props;
     const {id} = useParams();
 
     const [userId, setUserId] = useState<string>("");
     const [tanggal, setTanggal] = useState<string>("");
     const [expense, setExpense] = useState<string>("");
     const [advance, setAdvance] = useState<string>("");
-    const [coa, setCoa] = useState<string>("");
-    const [costCenter, setCostCenter] = useState<string>("");
-    const [analiticAccount, setAnaliticAccount] = useState<string>("");
+    const [coaId, setCoaId] = useState<string>("");
+    const [costCenterId, setCostCenterId] = useState<string>("");
+    const [annaliticAccountId, setAnnaliticAccountId] = useState<string>("");
     const [typePengajuanId, setTypePengajuanId] = useState<string>("");
     const [debit, setDebit] = useState<string>("");
     const [credit, setCredit] = useState<string>("");
     const [reference, setReference] = useState<string>("");
     const [keterangan, setKeterangan] = useState<string>("");
     const [statusId, setStatusId] = useState<string>("");
-    const [msg, setMsg] = useState("");
+    const [msgUpdate, setMsgUpdate] = useState("");
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -39,19 +39,21 @@ const FormUpdate = (props) => {
     );
 
       // Basic non sticky notification
-    const basicNonStickyNotification = useRef<NotificationElement>();
+    const notifUpdate = useRef<NotificationElement>();
 
     useEffect(()=>{
         setValue();
     },[dataPengajuan]);
 
     useEffect(()=>{
+        console.log(messagePengajuan.msg, 'message');
+
         if(isPengajuanSuccess && messagePengajuan){
-            basicNonStickyNotification.current?.showToast();
-            setMsg(messagePengajuan.msg);
+            notifUpdate.current?.showToast();
+            setMsgUpdate(messagePengajuan.msg);
             resetValue();
             dispatch(reset());
-            navigate('/dashboard');
+            navigate(`/formAdminView/${id}`);
         }
     },[isPengajuanSuccess, messagePengajuan])
 
@@ -60,15 +62,15 @@ const FormUpdate = (props) => {
         setTanggal(dayjs(dataPengajuan.tanggal).format("YYYY-MM-DD"));
         setExpense(dataPengajuan.expense);
         setAdvance(dataPengajuan.advance);
-        setCoa(dataPengajuan.coa);
-        setCostCenter(dataPengajuan.costCenter);
-        setAnaliticAccount(dataPengajuan.analiticAccount);
+        setCoaId(dataPengajuan.coaId);
+        setCostCenterId(dataPengajuan.costCenterId);
+        setAnnaliticAccountId(dataPengajuan.annaliticAccountId);
         setTypePengajuanId(dataPengajuan.typePengajuanId);
         setDebit(dataPengajuan.debit);
         setCredit(dataPengajuan.credit);
         setReference(dataPengajuan.reference);
         setKeterangan(dataPengajuan.keterangan);
-        setStatusId(dataPengajuan.statusId);
+        setStatusId(dataPengajuan.status && dataPengajuan.status.code);
     }
 
     const resetValue = () => {
@@ -76,9 +78,9 @@ const FormUpdate = (props) => {
         setTanggal("");
         setExpense("");
         setAdvance("");
-        setCoa("");
-        setCostCenter("");
-        setAnaliticAccount("");
+        setCoaId("");
+        setCostCenterId("");
+        setAnnaliticAccountId("");
         setTypePengajuanId("");
         setDebit("");
         setCredit("");
@@ -95,9 +97,9 @@ const FormUpdate = (props) => {
             tanggal, 
             expense, 
             advance, 
-            coa, 
-            costCenter,
-            analiticAccount,
+            coaId, 
+            costCenterId,
+            annaliticAccountId,
             debit,
             credit,
             reference,
@@ -117,7 +119,7 @@ const FormUpdate = (props) => {
         {/* BEGIN: Basic Non Sticky Notification Content */}
             <Notification
               getRef={(el) => {
-                basicNonStickyNotification.current = el;
+                notifUpdate.current = el;
               }}
               options={{
                 duration: 3000,
@@ -125,7 +127,7 @@ const FormUpdate = (props) => {
               className="flex flex-col sm:flex-row"
             >
               <div className="font-medium capitalize">
-                {msg}
+                {msgUpdate}
               </div>
             </Notification>
         {/* END: Basic Non Sticky Notification Content */}
@@ -201,34 +203,46 @@ const FormUpdate = (props) => {
                     />
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
-                    <FormLabel htmlFor="input-wizard-4">CoA</FormLabel>
-                    <FormInput
-                        id="coa"
-                        type="text"
-                        defaultValue={coa}
-                        onChange={(e)=>setCoa(e.target.value)}
-                        placeholder=""
-                    />
+                    <FormLabel htmlFor="input-wizard-5">CoA {coaId}</FormLabel>
+                    <FormSelect 
+                        value={coaId}
+                        required 
+                        onChange={(e)=>setCoaId(e.target.value)} 
+                        id="coaId"
+                        >
+                        <option></option>
+                        {coa.map((data, index)=>(
+                            <option key={index} value={data.id}>{data.name}</option>
+                        ))}
+                    </FormSelect>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-5">Cost Center</FormLabel>
-                    <FormInput
+                    <FormSelect 
+                        value={costCenterId}
+                        required 
+                        onChange={(e)=>setCostCenterId(e.target.value)} 
                         id="costCenter"
-                        type="text"
-                        defaultValue={costCenter}
-                        onChange={(e)=>setCostCenter(e.target.value)}
-                        placeholder=""
-                    />
+                        >
+                        <option></option>
+                        {costCenter.map((data, index)=>(
+                            <option key={index} value={data.id}>{data.name}</option>
+                        ))}
+                    </FormSelect>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-5">Analitic Account</FormLabel>
-                    <FormInput
-                        id="analiticAccount"
-                        type="text"
-                        defaultValue={analiticAccount}
-                        onChange={(e)=>setAnaliticAccount(e.target.value)}
-                        placeholder=""
-                    />
+                    <FormSelect 
+                        value={annaliticAccountId}
+                        required 
+                        onChange={(e)=>setAnnaliticAccountId(e.target.value)} 
+                        id="analiticAccountId"
+                        >
+                        <option></option>
+                        {annaliticAccount.map((data, index)=>(
+                            <option key={index} value={data.id}>{data.name}</option>
+                        ))}
+                    </FormSelect>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-6">Debit</FormLabel>
@@ -255,7 +269,7 @@ const FormUpdate = (props) => {
                     <FormInput
                         id="reference"
                         type="text"
-                        value={reference}
+                        defaultValue={reference}
                         onChange={(e)=>setReference(e.target.value)}
                         placeholder=""
                     />
@@ -265,7 +279,7 @@ const FormUpdate = (props) => {
                     <FormInput
                         id="keterangan"
                         type="text"
-                        value={keterangan}
+                        defaultValue={keterangan}
                         onChange={(e)=>setKeterangan(e.target.value)}
                         placeholder=""
                     />
@@ -280,7 +294,7 @@ const FormUpdate = (props) => {
                         >
                         <option></option>
                         {statuses.map((status, index)=>(
-                            <option key={index} value={status.id}>{status.name}</option>
+                            <option key={index} value={status.code}>{status.name}</option>
                         ))}
                     </FormSelect>
                 </div>

@@ -16,6 +16,9 @@ function Main() {
   const [typePengajuan, setTypePengajuan] = useState<Array>([]);
   const [status, setStatus] = useState<Array>([]);
   const [statuses, setStatuses] = useState<Array>([]);
+  const [coa, setCoa] = useState<Array>([]);
+  const [costCenter, setCostCenter] = useState<Array>([]);
+  const [annaliticAccount, setAnnaliticAccount] = useState<Array>([]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,7 +32,10 @@ function Main() {
   useEffect(()=>{
       getTypePengajuan();
       getStatus();
-      getStatuses()
+      getStatuses();
+      getCoa();
+      getCostCenter();
+      getAnnaliticAccount();
   },[])
 
   const getTypePengajuan = async() => {
@@ -47,9 +53,24 @@ function Main() {
     setStatuses(response.data);
   }
 
+  const getCoa = async() => {
+    const response = await axios.get(import.meta.env.VITE_REACT_APP_API_URL+"/coa");
+    setCoa(response.data);
+  }
+
+  const getCostCenter = async() => {
+    const response = await axios.get(import.meta.env.VITE_REACT_APP_API_URL+"/costCenter");
+    setCostCenter(response.data);
+  }
+
+  const getAnnaliticAccount = async() => {
+    const response = await axios.get(import.meta.env.VITE_REACT_APP_API_URL+"/annaliticAccount");
+    setAnnaliticAccount(response.data);
+  }
+
   return (
     <div className="grid grid-cols-12 gap-6">
-      <div className="col-span-12 2xl:col-span-9">
+      <div className="col-span-12 2xl:col-span-12">
         <div className="py-10 mt-5 intro-y box sm:py-20">
           <Judul 
             textJudul="Form Petty Cash"
@@ -58,6 +79,9 @@ function Main() {
             users={users} 
             typePengajuan={typePengajuan} 
             status={status} 
+            coa={coa}
+            costCenter={costCenter}
+            annaliticAccount={annaliticAccount}
           />
         </div>
       </div>
