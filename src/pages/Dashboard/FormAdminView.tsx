@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import Status from "./attribute/Status";
 import Judul from "./attribute/Judul";
 import ButtonAction from "./attribute/ButtonAction";
+import DataPtjb from "./attribute/DataPtjb";
 
 function Main() {
     const {id} = useParams();
@@ -41,7 +42,7 @@ function Main() {
 
   return (
     <div className="grid grid-cols-12 gap-6">
-      <div className="col-span-12 2xl:col-span-9">
+      <div className="col-span-12 2xl:col-span-12">
         <div className="py-10 mt-5 intro-y box sm:py-20">
           <Judul 
             textJudul="Petty Cash"
@@ -53,8 +54,13 @@ function Main() {
           <ButtonAction 
             linkEdit={`/formUpdate/${id}`}
             linkBack={`/dashboard`}
+            linkCreatePtjb={`/createPtjbAdmin/${id}`}
           />
           <FormView 
+            dataPengajuan={dataPengajuan}
+          />
+          <DataPtjb 
+            dataPtjb={dataPengajuan.ptjbs}
             dataPengajuan={dataPengajuan}
           />
         </div>

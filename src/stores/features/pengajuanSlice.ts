@@ -17,7 +17,23 @@ const initialState : variabel = {
     messagePengajuan: ""
 }
 
-export const SubmitPengajuan = createAsyncThunk("pengajuans/submitPengajuan", async(pengajuans, thunkAPI) => {
+interface varPengajuans {
+    tanggal: Date;
+    expense: String;
+    advance: String;
+    coaId: Number;
+    costCenterId: Number;
+    annaliticAccountId: Number;
+    debit: Number;
+    credit: Number;
+    reference: String;
+    keterangan: String;
+    typePengajuanId: Number;
+    userId: Number;
+    statusId: Number;
+}
+
+export const SubmitPengajuan = createAsyncThunk("pengajuans/submitPengajuan", async(pengajuans : varPengajuans, thunkAPI) => {
     console.log(pengajuans, "sampai di pengajuan");
 
     try {
@@ -39,7 +55,7 @@ export const SubmitPengajuan = createAsyncThunk("pengajuans/submitPengajuan", as
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error) {
+    } catch (error : void) {
         if(error.response){
             const message = error.response.data;
             console.log(message);
@@ -48,7 +64,7 @@ export const SubmitPengajuan = createAsyncThunk("pengajuans/submitPengajuan", as
     }
 });
 
-export const UpdatePengajuan = createAsyncThunk("pengajuans/UpdatePengajuan", async(pengajuans, thunkAPI) => {
+export const UpdatePengajuan = createAsyncThunk("pengajuans/UpdatePengajuan", async(pengajuans : varPengajuans, thunkAPI) => {
     console.log(pengajuans, "sampai di pengajuan");
 
     try {
@@ -70,7 +86,7 @@ export const UpdatePengajuan = createAsyncThunk("pengajuans/UpdatePengajuan", as
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error) {
+    } catch (error : void) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
@@ -86,7 +102,7 @@ export const GetPengajuan = createAsyncThunk("pengajuans/GetPengajuan", async(pe
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error) {
+    } catch (error : void) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
@@ -105,7 +121,7 @@ export const GetPengajuanByUser = createAsyncThunk("pengajuans/GetPengajuanByUse
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error) {
+    } catch (error : void) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);

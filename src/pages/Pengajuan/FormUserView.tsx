@@ -10,6 +10,7 @@ import ButtonAction from "./attribute/ButtonAction";
 import { useDispatch, useSelector } from 'react-redux';
 import { UpdatePengajuan, reset } from '../../stores/features/pengajuanSlice';
 import { useNavigate } from "react-router-dom";
+import DataPtjb from "./attribute/DataPtjb";
 
 function Main() {
     const {id} = useParams();
@@ -68,10 +69,14 @@ function Main() {
             status={dataPengajuan.status && dataPengajuan.status.code}
             linkEdit={`/formUserUpdate/${id}`}
             linkBack={`/pengajuan`}
+            linkCreatePtjb={`/createPtjb/${id}`}
             clickChangeStatus={clickChangeStatus}
             isPengajuanLoading={isPengajuanLoading}
           />
           <FormView 
+            dataPengajuan={dataPengajuan}
+          />
+          <DataPtjb 
             dataPengajuan={dataPengajuan}
           />
         </div>

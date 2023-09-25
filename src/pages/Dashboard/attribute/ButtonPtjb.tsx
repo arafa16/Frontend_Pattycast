@@ -1,17 +1,11 @@
 import React from 'react'
 import Button from "../../../base-components/Button";
+import LoadingIcon from '../../../base-components/LoadingIcon';
 import {useNavigate} from 'react-router-dom'
-const ButtonAction = (props) => {
-    const {linkEdit, linkBack, linkCreatePtjb} = props;
+
+const ButtonPtjb = (props) => {
+    const {linkBack, linkUpdate, deletePtjb} = props;
     const navigate = useNavigate();
-
-    const clickEdit = () => {
-        navigate(linkEdit);
-    }
-
-    const clickBack = () => {
-        navigate(linkBack);
-    }
 
     return (
         <>
@@ -20,23 +14,23 @@ const ButtonAction = (props) => {
                     size='sm' 
                     variant="secondary" 
                     className="w-24 ml-2"
-                    onClick={()=>clickBack()}
+                    onClick={()=>navigate(linkBack)}
                 >
                     back
                 </Button>
                 <Button 
                     size='sm' 
-                    variant="primary" 
-                    className={`w-24 ml-2`}
-                    onClick={()=>navigate(`${linkCreatePtjb}`)}
+                    variant="danger" 
+                    className="w-24 ml-2"
+                    onClick={()=>deletePtjb()}
                 >
-                    <p className='text-white'>Create PTJB</p>
+                    delete
                 </Button>
                 <Button 
                     size='sm' 
                     variant="primary" 
                     className="w-24 ml-2"
-                    onClick={()=>clickEdit()}
+                    onClick={()=>navigate(linkUpdate)}
                 >
                     edit
                 </Button>
@@ -45,4 +39,4 @@ const ButtonAction = (props) => {
     )
 }
 
-export default ButtonAction
+export default ButtonPtjb

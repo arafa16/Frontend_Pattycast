@@ -2,8 +2,9 @@ import React from 'react'
 import Button from "../../../base-components/Button";
 import LoadingIcon from '../../../base-components/LoadingIcon';
 import {useNavigate} from 'react-router-dom'
+
 const ButtonAction = (props) => {
-    const {linkEdit, linkBack, status, clickChangeStatus, isPengajuanLoading} = props;
+    const {linkEdit, linkBack, linkCreatePtjb, status, clickChangeStatus, isPengajuanLoading} = props;
     const navigate = useNavigate();
 
     const clickEdit = () => {
@@ -29,7 +30,7 @@ const ButtonAction = (props) => {
                     size='sm' 
                     variant="primary" 
                     className={`w-24 ml-2 ${status === 4 ? '' : 'hidden'}`}
-                    onClick={()=>clickBack()}
+                    onClick={()=>navigate(`${linkCreatePtjb}`)}
                 >
                     <p className='text-white'>Create PTJB</p>
                 </Button>

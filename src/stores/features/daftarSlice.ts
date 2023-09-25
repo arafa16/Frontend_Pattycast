@@ -17,7 +17,15 @@ const initialState : variabel = {
     messageDataUser: ""
 }
 
-export const PendaftaranUser = createAsyncThunk("user/PendaftaranUser", async(dataUser, thunkAPI) => {
+interface varDataUser {
+    name: String;
+    email: String;    
+    password: String;
+    isAdmin: boolean;
+    isActive: boolean;
+}
+
+export const PendaftaranUser = createAsyncThunk("user/PendaftaranUser", async(dataUser : varDataUser, thunkAPI) => {
     try {
         const response = await axios.post(import.meta.env.VITE_REACT_APP_API_URL+'/users/admin', {
             name: dataUser.name,

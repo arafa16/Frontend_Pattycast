@@ -5,15 +5,7 @@ const Status = (props) => {
     const {statuses, status} = props;
   return (
     <>
-        <div className="relative before:hidden before:lg:block before:absolute before:w-[69%] before:h-[3px] before:top-0 before:bottom-0 before:mt-4 before:bg-slate-100 before:dark:bg-darkmode-400 flex flex-col lg:flex-row justify-center px-5 sm:px-20">
-            {/* <div className="z-10 flex items-center flex-1 intro-x lg:text-center lg:block">
-                <Button variant="primary" className="w-7 h-7 rounded-full">
-                1
-                </Button>
-                <div className="ml-3 lg:w-32 lg:mt-3 lg:mx-auto">
-                Draft
-                </div>
-            </div> */}
+        <div className="relative my-16 before:hidden before:lg:block before:absolute before:w-[69%] before:h-[3px] before:top-0 before:bottom-0 before:mt-4 before:bg-slate-100 before:dark:bg-darkmode-400 flex flex-col lg:flex-row justify-center px-5 sm:px-20">
             {statuses.map((data, index)=>(
                 <div 
                     className="z-10 flex items-center flex-1 mt-5 intro-x lg:text-center lg:mt-0 lg:block"

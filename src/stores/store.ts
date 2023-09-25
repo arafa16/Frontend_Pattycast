@@ -6,6 +6,8 @@ import sideMenuReducer from "./sideMenuSlice";
 import authSlice from './features/authSlice.ts';
 import daftarSlice from "./features/daftarSlice";
 import pengajuanSlice from "./features/pengajuanSlice";
+import ptjbSlice from "./features/ptjbSlice";
+import userSlice from "./features/userSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +17,8 @@ export const store = configureStore({
     auth: authSlice,
     daftar: daftarSlice,
     pengajuanReducer: pengajuanSlice,
+    ptjbReducer: ptjbSlice,
+    usersReducer : userSlice
   },
 });
 

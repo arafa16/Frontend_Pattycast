@@ -66,7 +66,7 @@ function Main() {
 
   return (
     <div className="grid grid-cols-12 gap-6">
-      <div className="col-span-12 2xl:col-span-9">
+      <div className="col-span-12 2xl:col-span-12">
         <FormUpdate 
           dataPengajuan={dataPengajuan} 
           users={users} 

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import TableUser from './attribute/TableUser'
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUsers, resetDataUsers } from '../../stores/features/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const DataUser = () => {
   const [users, setUsers] = useState([]);
@@ -10,20 +13,31 @@ const DataUser = () => {
   const [allPage, setAllPage] = useState(0);
   const [allData, setAllData] = useState(0);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const {dataUsers, isDataUsersSuccess, isDataUsersError, isDataUsersLoading, messageDataUsers} = useSelector((state) => state.usersReducer);
+
   useEffect(()=>{
-      getUsers();
+    getDataUsers();
   },[limit, page, status])
 
-  const getUsers = async() => {
-      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/users/${limit}&${page}&${status}`,{
-          withCredentials: true, // Now this is was the missing piece in the client side 
-        });
-      
-      console.log(`${import.meta.env.VITE_REACT_APP_API_URL}/users/${limit}&${page}&${status}`, status, response.data,  'status');
-      setUsers(response.data);
-      countPage(response.data.count);
-      setAllData(response.data.count);
-      // console.log(response.data, 'data users');
+  useEffect(()=>{
+    if(isDataUsersSuccess){
+      setUsers(dataUsers && dataUsers.rows);
+      countPage(dataUsers && dataUsers.count);
+      setAllData(dataUsers && dataUsers.count);
+      dispatch(resetDataUsers());
+    }
+    
+  },[isDataUsersSuccess])
+
+  const getDataUsers = async() => {
+    dispatch(getUsers({
+      limit,
+      page,
+      status
+    }));
   }
 
   //hitung total page
@@ -58,7 +72,7 @@ const DataUser = () => {
   return (
     <div>
         <TableUser 
-            users={users.rows}
+            users={users}
             limit={limit}
             page={page}
             allPage={allPage}

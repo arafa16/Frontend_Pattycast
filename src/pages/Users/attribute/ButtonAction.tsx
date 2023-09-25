@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from "../../../base-components/Button";
 const ButtonAction = (props) => {
-    const {clickBack} = props;
+    const {clickBack, clickDelete} = props;
     return (
         <>
             <div className='flex justify-end px-4'>
@@ -9,7 +9,7 @@ const ButtonAction = (props) => {
                     size='sm' 
                     variant="danger" 
                     className="w-32 ml-2"
-                    // onClick={()=>clickBack()}
+                    onClick={()=>clickDelete()}
                 >
                     delete
                 </Button>
