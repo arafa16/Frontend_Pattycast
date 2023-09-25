@@ -4,7 +4,7 @@ const ButtonAction = (props) => {
     const {clickBack, clickDelete} = props;
     return (
         <>
-            <div className='flex justify-end px-4'>
+            <div className='flex justify-end px-4 pt-10'>
                 <Button 
                     size='sm' 
                     variant="danger" 
@@ -20,6 +20,14 @@ const ButtonAction = (props) => {
                     // onClick={()=>clickBack()}
                 >
                     change password
+                </Button>
+                <Button 
+                    size='sm' 
+                    variant="secondary" 
+                    className="w-24 ml-2"
+                    onClick={()=>clickBack()}
+                >
+                    edit
                 </Button>
                 <Button 
                     size='sm' 

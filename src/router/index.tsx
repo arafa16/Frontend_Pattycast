@@ -12,6 +12,7 @@ import Pengajuan from "../pages/Pengajuan";
 import DataUser from "../pages/Users/DataUser";
 import FormUserByAdmin from "../pages/Users/FormUser";
 import ViewUser from "../pages/Users/ViewUser";
+import UpdateUser from "../pages/Users/UpdateUser";
 import PtjbFormUser from "../pages/Pengajuan/PtjbFormUser";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
@@ -80,6 +81,10 @@ function Router() {
         {
           path: "/viewUser/:id",
           element: <ViewUser />,
+        },
+        {
+          path: "/updateUser/:id",
+          element: <UpdateUser />,
         },
         {
           path: "/createPtjb/:id",
