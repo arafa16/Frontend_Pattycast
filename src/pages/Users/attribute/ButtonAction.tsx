@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from "../../../base-components/Button";
 const ButtonAction = (props) => {
-    const {clickBack, clickDelete} = props;
+    const {clickBack, clickDelete, clickUpdate, setViewModal} = props;
     return (
         <>
             <div className='flex justify-end px-4 pt-10'>
@@ -17,7 +17,10 @@ const ButtonAction = (props) => {
                     size='sm' 
                     variant="primary" 
                     className="w-32 ml-2"
-                    // onClick={()=>clickBack()}
+                    onClick={(event: React.MouseEvent) => {
+                        event.preventDefault();
+                        setViewModal(true);
+                    }}
                 >
                     change password
                 </Button>
@@ -25,7 +28,7 @@ const ButtonAction = (props) => {
                     size='sm' 
                     variant="secondary" 
                     className="w-24 ml-2"
-                    onClick={()=>clickBack()}
+                    onClick={()=>clickUpdate()}
                 >
                     edit
                 </Button>

@@ -1,29 +1,40 @@
 import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getMe, LogOut, reset} from "../../stores/features/authSlice";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, redirect} from 'react-router-dom';
 
 import Lucide from "../../base-components/Lucide";
 import Breadcrumb from "../../base-components/Breadcrumb";
 import { Menu } from "../../base-components/Headless";
 import fakerData from "../../utils/faker";
+import imageUser from '../../assets/images/user.jpeg';
 import _ from "lodash";
+import ResetPassword from "../../pages/Users/attribute/ResetPassword";
 
 function Main(props: { toggleMobileMenu: (event: React.MouseEvent) => void }) {
-  const [searchResultModal, setSearchResultModal] = useState(false);
+  const [viewModal, setViewModal] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {users, isError} = useSelector((state) => state.auth);
+  
 
   useEffect(() => {
-    dispatch(getMe());
-  }, [dispatch]);
+      dispatch(getMe());
+
+  },[]);
+
+  useEffect(() => {
+    // setInterval(()=>{
+      dispatch(getMe());
+      // console.log(isError, 'users');
+    // },5000)
+  },[isError]);
 
   useEffect(() => {
     if (isError) {
-      navigate("/login");
+      navigate("/login", { replace: true });
     }
-  }, [isError, navigate]);
+  }, [isError]);
 
   const getLogOut = () => {
     dispatch(LogOut());
@@ -81,7 +92,7 @@ function Main(props: { toggleMobileMenu: (event: React.MouseEvent) => void }) {
               <img
                 alt="Rocketman - HTML Admin Template"
                 className="border-2 border-white rounded-full shadow-lg border-opacity-10"
-                src={fakerData[9].photos[0]}
+                src={imageUser}
               />
             </div>
             <div className="hidden ml-3 md:block text-slate-200">
@@ -94,17 +105,10 @@ function Main(props: { toggleMobileMenu: (event: React.MouseEvent) => void }) {
             </div>
           </Menu.Button>
           <Menu.Items className="w-56 mt-px">
-            <Menu.Item>
-              <Lucide icon="User" className="w-4 h-4 mr-2" /> Profile
-            </Menu.Item>
-            <Menu.Item>
-              <Lucide icon="Edit" className="w-4 h-4 mr-2" /> Add Account
-            </Menu.Item>
-            <Menu.Item>
+            <Menu.Item
+              onClick={()=>setViewModal(true)}
+            >
               <Lucide icon="Lock" className="w-4 h-4 mr-2" /> Reset Password
-            </Menu.Item>
-            <Menu.Item>
-              <Lucide icon="HelpCircle" className="w-4 h-4 mr-2" /> Help
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item onClick={()=>getLogOut()}>
@@ -115,6 +119,11 @@ function Main(props: { toggleMobileMenu: (event: React.MouseEvent) => void }) {
         {/* END: Account Menu */}
       </div>
       {/* END: Top Bar */}
+      <ResetPassword 
+          viewModal={viewModal} 
+          setViewModal={setViewModal}
+          id={users && users.uuid}
+      />
     </>
   );
 }

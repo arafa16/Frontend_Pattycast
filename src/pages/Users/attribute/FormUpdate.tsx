@@ -5,12 +5,14 @@ import LoadingIcon from "../../../base-components/LoadingIcon";
 import Notification from "../../../base-components/Notification";
 import { NotificationElement } from "../../../base-components/Notification";
 import { PendaftaranUser, resetDataUser } from '../../../stores/features/daftarSlice';
+import { getUserById, resetDataUsers, UpdateUser } from '../../../stores/features/userSlice';
 
 import Button from "../../../base-components/Button";
 import { FormInput, FormLabel, FormSelect } from "../../../base-components/Form";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const FormUpdate = () => {
+    const {id} = useParams();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,8 +20,8 @@ const FormUpdate = () => {
     const [isActive, setIsActive] = useState(0);
     const [msg, setMsg] = useState('');
 
-    const {dataUser, isDataUserSuccess, isDataUserError, isDataUserLoading, messageDataUser} = useSelector(
-        (state) => state.daftar
+    const {dataUsers, isDataUsersSuccess, isDataUsersError, isDataUsersLoading, messageDataUsers} = useSelector(
+        (state) => state.usersReducer
     )
 
     const navigate = useNavigate();
@@ -29,24 +31,46 @@ const FormUpdate = () => {
     const notifCreateUser = useRef<NotificationElement>();
 
     useEffect(()=>{
-        console.log(messageDataUser, 'msg data user');
-        if(isDataUserSuccess && messageDataUser){
-            notifCreateUser.current?.showToast();
-            setMsg(messageDataUser.msg);
-            navigate('/dataUser');
-            dispatch(resetDataUser());
-        }
-    },[isDataUserSuccess, messageDataUser]);
+        getDataUser();
+    },[id])
 
-    const submitPendaftaran = (e) => {
+    useEffect(()=>{
+        setValue();
+    },[dataUsers]);
+
+    const getDataUser = () => {
+        dispatch(getUserById({id}));
+    }
+
+    console.log(dataUsers, 'data users')
+
+    const setValue = () => {
+        setName(dataUsers && dataUsers.name);
+        setEmail(dataUsers && dataUsers.email);
+        setIsAdmin(dataUsers && dataUsers.isAdmin ? 1 : 0)
+        setIsActive(dataUsers && dataUsers.isActive ? 1 : 0)
+    }
+
+    useEffect(()=>{
+        if(isDataUsersSuccess && messageDataUsers){
+            notifCreateUser.current?.showToast();
+            setMsg(messageDataUsers.msg);
+            dispatch(resetDataUsers());
+            navigate(`/viewUser/${id}`);
+        }
+
+    },[isDataUsersSuccess, messageDataUsers]);
+
+    const submitUpdate = (e) => {
         e.preventDefault();
-        dispatch(PendaftaranUser({
+        dispatch(UpdateUser({
+            id,
             name,
             email,
-            password,
             isAdmin,
             isActive
         }));
+        
     };
 
   return (
@@ -68,14 +92,14 @@ const FormUpdate = () => {
         {/* BEGIN: Wizard Layout */}
         <div className="py-10 intro-y sm:py-10">
             <div className="px-5 pt-10 mt-10 border-t sm:px-20 border-slate-200/60 dark:border-darkmode-400">
-                <form onSubmit={submitPendaftaran}>
+                <form onSubmit={submitUpdate}>
                     <div className="grid grid-cols-12 gap-4 mt-5 gap-y-5">
                         <div className="col-span-12 intro-y sm:col-span-6">
                             <FormLabel htmlFor="input-wizard-6">Nama</FormLabel>
                             <FormInput
                                 id="name"
                                 type="text"
-                                value={name}
+                                defaultValue={name}
                                 required
                                 onChange={(e)=>setName(e.target.value)}
                                 placeholder=""
@@ -86,7 +110,7 @@ const FormUpdate = () => {
                             <FormInput
                                 id="email"
                                 type="text"
-                                value={email}
+                                defaultValue={email}
                                 required
                                 onChange={(e)=>setEmail(e.target.value)}
                                 placeholder=""
@@ -119,11 +143,11 @@ const FormUpdate = () => {
                             </FormSelect>
                         </div>
                         <div className="flex items-center justify-center col-span-12 mt-5 intro-y sm:justify-end">
-                            <Button type='reset' onClick={()=>{navigate('/pengajuan')}} variant="secondary" className="w-48 ml-2">
-                                Cancel or Back
+                            <Button type='reset' variant="danger" onClick={()=>navigate(`/viewUser/${id}`)} className="w-48 ml-2">
+                                Cancel
                             </Button>
                             <Button type='submit' variant="primary" className="w-48 ml-2">
-                                {isDataUserLoading ? <LoadingIcon icon="ball-triangle" color="white" className="w-5 h-5" /> : 'Update User'}
+                                {isDataUsersLoading ? <LoadingIcon icon="ball-triangle" color="white" className="w-5 h-5" /> : 'Update User'}
                             </Button>
                         </div>
                     </div>

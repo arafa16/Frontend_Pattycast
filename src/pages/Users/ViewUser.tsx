@@ -8,10 +8,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, resetDataUsers } from '../../stores/features/userSlice';
+import ResetPassword from './attribute/ResetPassword';
 
 const ViewUser = () => {
     const {id} = useParams();
     const [dataUser, setDataUser] = useState([]);
+    const [viewModal, setViewModal] = useState(false);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -22,11 +25,11 @@ const ViewUser = () => {
     },[id]);
 
     useEffect(()=>{
-        if(isDataUsersSuccess){
-            dispatch(resetDataUsers());
+        if(isDataUsersSuccess && messageDataUsers){
             navigate('/dataUser');
+            dispatch(resetDataUsers());
         }
-    },[isDataUsersSuccess]);
+    },[isDataUsersSuccess, messageDataUsers]);
 
     const getDataUser = async() => {
         const response = await axios.get(import.meta.env.VITE_REACT_APP_API_URL+"/users/"+id,{
@@ -39,6 +42,11 @@ const ViewUser = () => {
     const clickBack = () => {
         navigate('/dataUser');
     }
+
+    const clickUpdate = () => {
+        navigate(`/updateUser/${id}`);
+    }
+
 
     const clickDelete = async() => {
         dispatch(deleteUser({id}));
@@ -54,9 +62,16 @@ const ViewUser = () => {
                 <ButtonAction 
                     clickBack={clickBack}
                     clickDelete={clickDelete}
+                    clickUpdate={clickUpdate}
+                    setViewModal={setViewModal}
                 />
                 <FormView 
                     dataUser={dataUser}
+                />
+                <ResetPassword 
+                    viewModal={viewModal} 
+                    setViewModal={setViewModal}
+                    id={id}
                 />
             </div>
         </div>

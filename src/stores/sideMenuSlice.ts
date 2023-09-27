@@ -32,6 +32,11 @@ const initialState: SideMenuState = {
         },
         {
           icon: "Activity",
+          pathname: "/exportData",
+          title: "Export Data",
+        },
+        {
+          icon: "Activity",
           pathname: "/dataUser",
           title: "Data User",
         }

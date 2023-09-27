@@ -45,6 +45,24 @@ export const PendaftaranUser = createAsyncThunk("user/PendaftaranUser", async(da
     }
 });
 
+export const UpdatePassword = createAsyncThunk("user/UpdatePassword", async(dataUser : varDataUser, thunkAPI) => {
+    try {
+        const response = await axios.patch(`${import.meta.env.VITE_REACT_APP_API_URL}/users/${dataUser.id}/password`, {
+            password: dataUser.password
+        },{
+            withCredentials: true, // Now this is was the missing piece in the client side 
+        });
+        return response.data;
+    } catch (error) {
+        if(error.response){
+            const message = error.response.data.msg;
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+});
+
+
+
 export const daftarSlice = createSlice({
     name: "daftar",
     initialState,
@@ -66,6 +84,22 @@ export const daftarSlice = createSlice({
             state.isDataUserError = true;
             state.messageDataUser = action.payload;
         });
+
+        // update password by id
+        builder.addCase(UpdatePassword.pending, (state) => {
+            state.isDataUserLoading = true;
+        });
+        builder.addCase(UpdatePassword.fulfilled, (state, action) => {
+            state.isDataUserLoading = false;
+            state.isDataUserSuccess = true;
+            state.messageDataUser = action.payload;
+        });
+        builder.addCase(UpdatePassword.rejected, (state, action) => {
+            state.isDataUserLoading = false;
+            state.isDataUserError = true;
+            state.messageDataUser = action.payload;
+        })
+
     }
 });
 

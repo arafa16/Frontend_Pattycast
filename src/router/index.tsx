@@ -20,6 +20,7 @@ import ViewPtjbUser from "../pages/Pengajuan/ViewPtjbUser";
 import UpdatePtjbUser from "../pages/Pengajuan/UpdatePtjbUser";
 import ViewPtjbAdmin from "../pages/Dashboard/ViewPtjbAdmin";
 import UpdatePtjbAdmin from "../pages/Dashboard/UpdatePtjbAdmin";
+import ExportData from "../pages/Export/ExportData";
 
 function Router() {
   const routes = [
@@ -97,7 +98,11 @@ function Router() {
         {
           path: "/updatePtjb/:id",
           element: <UpdatePtjbUser />
-        }
+        },
+        {
+          path: "/exportData",
+          element: <ExportData />
+        },
       ],
     },
     {

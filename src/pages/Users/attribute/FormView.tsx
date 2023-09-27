@@ -17,12 +17,12 @@ const FormView = (props) => {
                         <div className='w-2/3'>: {dataUser && dataUser.email}</div>
                     </div>
                     <div className="col-span-12 intro-y sm:col-span-6 flex justify-between">
-                        <FormLabel htmlFor="input-wizard-5">is Active</FormLabel>
-                        <div className='w-2/3'>: {dataUser && dataUser.isActive ? 'yes' : 'no'}</div>
-                    </div>
-                    <div className="col-span-12 intro-y sm:col-span-6 flex justify-between">
                         <FormLabel htmlFor="input-wizard-5">is Admin</FormLabel>
                         <div className='w-2/3'>: {dataUser && dataUser.isAdmin ? 'yes' : 'no'}</div>
+                    </div>
+                    <div className="col-span-12 intro-y sm:col-span-6 flex justify-between">
+                        <FormLabel htmlFor="input-wizard-5">is Active</FormLabel>
+                        <div className='w-2/3'>: {dataUser && dataUser.isActive ? 'yes' : 'no'}</div>
                     </div>
                 </div>
             </div>
