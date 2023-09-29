@@ -7,7 +7,7 @@ import Lucide from "../../base-components/Lucide";
 import Breadcrumb from "../../base-components/Breadcrumb";
 import { Menu } from "../../base-components/Headless";
 import fakerData from "../../utils/faker";
-import imageUser from '../../assets/images/user.jpeg';
+import imageUser from '../../assets/images/user.png';
 import _ from "lodash";
 import ResetPassword from "../../pages/Users/attribute/ResetPassword";
 

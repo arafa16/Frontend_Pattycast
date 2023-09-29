@@ -13,13 +13,13 @@ import Litepicker from "../../../base-components/Litepicker";
 import { useNavigate, useParams } from 'react-router-dom';
 
 const FormUpdate = (props) => {
-    const {users, dataPengajuan, typePengajuan} = props;
+    const {users, dataPengajuan, typePengajuan, coaSelect, costCenterSelect, annaliticAccountSelect} = props;
     const {id} = useParams();
 
     const [tanggal, setTanggal] = useState<string>("");
-    const [coa, setCoa] = useState<string>("");
-    const [costCenter, setCostCenter] = useState<string>("");
-    const [analiticAccount, setAnaliticAccount] = useState<string>("");
+    const [coaId, setCoaId] = useState<string>("");
+    const [costCenterId, setCostCenterId] = useState<string>("");
+    const [annaliticAccountId, setAnnaliticAccountId] = useState<string>("");
     const [typePengajuanId, setTypePengajuanId] = useState<string>("");
     const [debit, setDebit] = useState<string>("");
     const [credit, setCredit] = useState<string>("");
@@ -59,9 +59,9 @@ const FormUpdate = (props) => {
 
     const setValue = () => {
         setTanggal(dayjs(dataPengajuan.tanggal).format("YYYY-MM-DD"));
-        setCoa(dataPengajuan.coa);
-        setCostCenter(dataPengajuan.costCenter);
-        setAnaliticAccount(dataPengajuan.analiticAccount);
+        setCoaId(dataPengajuan.coaId);
+        setCostCenterId(dataPengajuan.costCenterId);
+        setAnnaliticAccountId(dataPengajuan.annaliticAccountId);
         setTypePengajuanId(dataPengajuan.typePengajuanId);
         setDebit(dataPengajuan.debit);
         setCredit(dataPengajuan.credit);
@@ -71,9 +71,9 @@ const FormUpdate = (props) => {
 
     const resetValue = () => {
         setTanggal("");
-        setCoa("");
-        setCostCenter("");
-        setAnaliticAccount("");
+        setCoaId("");
+        setCostCenterId("");
+        setAnnaliticAccountId("");
         setTypePengajuanId("");
         setDebit("");
         setCredit("");
@@ -86,9 +86,9 @@ const FormUpdate = (props) => {
         dispatch(UpdatePengajuan({
             id,
             tanggal,
-            coa, 
-            costCenter,
-            analiticAccount,
+            coaId, 
+            costCenterId,
+            annaliticAccountId,
             debit,
             credit,
             reference,
@@ -139,33 +139,45 @@ const FormUpdate = (props) => {
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-4">CoA</FormLabel>
-                    <FormInput
-                        id="coa"
-                        type="text"
-                        defaultValue={coa}
-                        onChange={(e)=>setCoa(e.target.value)}
-                        placeholder=""
-                    />
+                    <FormSelect 
+                        value={coaId}
+                        required 
+                        onChange={(e)=>setCoaId(e.target.value)} 
+                        id="coaId"
+                        >
+                        <option></option>
+                        {coaSelect.map((data, index)=>(
+                            <option key={index} value={data.id}>{data.name}</option>
+                        ))}
+                    </FormSelect>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-5">Cost Center</FormLabel>
-                    <FormInput
+                    <FormSelect 
+                        value={costCenterId}
+                        required 
+                        onChange={(e)=>setCostCenterId(e.target.value)} 
                         id="costCenter"
-                        type="text"
-                        defaultValue={costCenter}
-                        onChange={(e)=>setCostCenter(e.target.value)}
-                        placeholder=""
-                    />
+                        >
+                        <option></option>
+                        {costCenterSelect.map((data, index)=>(
+                            <option key={index} value={data.id}>{data.name}</option>
+                        ))}
+                    </FormSelect>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-5">Analitic Account</FormLabel>
-                    <FormInput
-                        id="analiticAccount"
-                        type="text"
-                        defaultValue={analiticAccount}
-                        onChange={(e)=>setAnaliticAccount(e.target.value)}
-                        placeholder=""
-                    />
+                    <FormSelect 
+                        value={annaliticAccountId}
+                        required 
+                        onChange={(e)=>setAnnaliticAccountId(e.target.value)} 
+                        id="analiticAccountId"
+                        >
+                        <option></option>
+                        {annaliticAccountSelect.map((data, index)=>(
+                            <option key={index} value={data.id}>{data.name}</option>
+                        ))}
+                    </FormSelect>
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-5">Type Pengajuan</FormLabel>

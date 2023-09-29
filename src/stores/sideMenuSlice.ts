@@ -41,6 +41,39 @@ const initialState: SideMenuState = {
           title: "Data User",
         }
       ],
+    },{
+      icon: "Home",
+      title: "Setting",
+      subMenu: [
+        {
+          icon: "Activity",
+          pathname: "/coa",
+          title: "Coa",
+        },
+        {
+          icon: "Activity",
+          pathname: "/typePengajuan",
+          title: "Type Pengajuan",
+        },
+        {
+          icon: "Activity",
+          pathname: "/costCenter",
+          title: "Cost Center",
+        },
+        {
+          icon: "Activity",
+          pathname: "/annaliticAccount",
+          title: "Annalitic Account",
+        },
+        {
+          icon: "Activity",
+          pathname: "/statusPengajuan",
+          title: "Status Pengajuan",
+        }
+
+
+        
+      ],
     },
   ],
 };

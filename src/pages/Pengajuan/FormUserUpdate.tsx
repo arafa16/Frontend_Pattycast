@@ -13,6 +13,9 @@ function Main() {
     const [dataPengajuan, setDataPengajuan] = useState<Array>([]);
     const [status, setStatus] = useState<Array>([]);
     const [statuses, setStatuses] = useState<Array>([]);
+    const [coaSelect, setCoaSelect] = useState<Array>([]);
+    const [costCenterSelect, setCostCenterSelect] = useState<Array>([]);
+    const [annaliticAccountSelect, setAnnaliticAccountSelect] = useState<Array>([]);
 
     useEffect(()=>{
         getUser();
@@ -20,6 +23,9 @@ function Main() {
         getStatus();
         getStatuses();
         getDataPengajuan();
+        getCoa();
+        getCostCenter();
+        getAnnaliticAccount();
     },[]);
 
     const getDataPengajuan = async() => {
@@ -51,6 +57,21 @@ function Main() {
       setStatuses(response.data);
     }
 
+    const getCoa = async() => {
+      const response = await axios.get(import.meta.env.VITE_REACT_APP_API_URL+"/coa");
+      setCoaSelect(response.data);
+    }
+  
+    const getCostCenter = async() => {
+      const response = await axios.get(import.meta.env.VITE_REACT_APP_API_URL+"/costCenter");
+      setCostCenterSelect(response.data);
+    }
+  
+    const getAnnaliticAccount = async() => {
+      const response = await axios.get(import.meta.env.VITE_REACT_APP_API_URL+"/annaliticAccount");
+      setAnnaliticAccountSelect(response.data);
+    }
+
   return (
     <div className="grid grid-cols-12 gap-6">
       <div className="col-span-12 2xl:col-span-12">
@@ -66,6 +87,9 @@ function Main() {
             dataPengajuan={dataPengajuan} 
             users={users} 
             typePengajuan={typePengajuan} 
+            coaSelect={coaSelect}
+            costCenterSelect={costCenterSelect}
+            annaliticAccountSelect={annaliticAccountSelect}
           />
         </div>
       </div>

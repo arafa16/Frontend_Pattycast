@@ -21,6 +21,26 @@ import UpdatePtjbUser from "../pages/Pengajuan/UpdatePtjbUser";
 import ViewPtjbAdmin from "../pages/Dashboard/ViewPtjbAdmin";
 import UpdatePtjbAdmin from "../pages/Dashboard/UpdatePtjbAdmin";
 import ExportData from "../pages/Export/ExportData";
+import Coa from "../pages/Coa/Coa";
+import FormCreate from "../pages/Coa/FormCreate";
+import FormUpdateCoa from "../pages/Coa/FormUpdateCoa";
+import ViewCoa from "../pages/Coa/viewCoa";
+import TypePengajuan from "../pages/TypePengajuan/TypePengajuan";
+import ViewTypePengajuan from "../pages/TypePengajuan/ViewTypePengajuan";
+import UpdateTypePengajuan from "../pages/TypePengajuan/UpdateTypePengajuan";
+import FormTypePengajuan from "../pages/TypePengajuan/FormTypePengajuan";
+import CostCenter from "../pages/CostCenter/CostCenter";
+import ViewCostCenter from "../pages/CostCenter/ViewCostCenter";
+import FormCostCenter from "../pages/CostCenter/FormCostCenter";
+import UpdateCostCenter from "../pages/CostCenter/UpdateCostCenter";
+import AnnaliticAccount from "../pages/AnnaliticAccount/AnnaliticAccount";
+import FormAnnaliticAccount from "../pages/AnnaliticAccount/FormAnnaliticAccount";
+import ViewAnnaliticAccount from "../pages/AnnaliticAccount/ViewAnnaliticAccount";
+import UpdateAnnaliticAccount from "../pages/AnnaliticAccount/UpdateAnnaliticAccount";
+import StatusPengajuan from "../pages/StatusPengajuan/StatusPengajuan";
+import FormStatusPengajuan from "../pages/StatusPengajuan/FormStatusPengajuan";
+import ViewStatusPengajaun from "../pages/StatusPengajuan/ViewStatusPengajaun";
+import UpdateStatusPengajaun from "../pages/StatusPengajuan/UpdateStatusPengajaun";
 
 function Router() {
   const routes = [
@@ -103,6 +123,95 @@ function Router() {
           path: "/exportData",
           element: <ExportData />
         },
+        //coa
+        {
+          path: "/coa",
+          element: <Coa />
+        },
+        {
+          path: "/coaForm",
+          element: <FormCreate />
+        },
+        {
+          path: "/formUpdateCoa/:id",
+          element: <FormUpdateCoa />
+        },
+        {
+          path: "/viewCoa/:id",
+          element: <ViewCoa />
+        },
+        //Type Pengajuan
+        {
+          path: "/typePengajuan",
+          element: <TypePengajuan />
+        },
+        {
+          path: "/viewTypePengajuan/:id",
+          element: <ViewTypePengajuan />
+        },
+        {
+          path: "/updateTypePengajuan/:id",
+          element: <UpdateTypePengajuan />
+        },
+        {
+          path: "/createTypePengajuan",
+          element: <FormTypePengajuan />
+        },
+        //cost center
+        {
+          path: "/costCenter",
+          element: <CostCenter />
+        },
+        {
+          path: "/viewCostCenter/:id",
+          element: <ViewCostCenter />
+        },
+        {
+          path: "/formCostCenter",
+          element: <FormCostCenter />
+        },
+        {
+          path: "/updateCostCenter/:id",
+          element: <UpdateCostCenter />
+        }
+        //annalitic account
+        ,
+        {
+          path: "/annaliticAccount",
+          element: <AnnaliticAccount />
+        },
+        {
+          path: "/FormAnnaliticAccount",
+          element: <FormAnnaliticAccount />
+        },
+        {
+          path: "/viewAnnaliticAccount/:id",
+          element: <ViewAnnaliticAccount />
+        },
+        {
+          path: "/updateAnnaliticAccount/:id",
+          element: <UpdateAnnaliticAccount />
+        }
+        //status
+        ,
+        {
+          path: "/statusPengajuan",
+          element: <StatusPengajuan />
+        },
+        {
+          path: "/formStatusPengajuan",
+          element: <FormStatusPengajuan />
+        },
+        {
+          path: "/viewStatusPengajuan/:id",
+          element: <ViewStatusPengajaun />
+        },
+        {
+          path: "/updateStatusPengajaun/:id",
+          element: <UpdateStatusPengajaun />
+        }
+        
+        
       ],
     },
     {
