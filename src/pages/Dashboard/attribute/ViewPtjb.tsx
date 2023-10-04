@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormLabel } from '../../../base-components/Form'
 
-const ViewPtjb = (props) => {
+const ViewPtjb = (props : any) => {
     const {dataPtjb} = props;
 
   return (

@@ -24,7 +24,7 @@ const FormUpdate = () => {
         setIsActive(response.data && response.data.isActive ? '1' : '0');
     }
 
-    const updateAnnaliticAccount = async(e) => {
+    const updateAnnaliticAccount = async(e : any) => {
         e.preventDefault();
         await axios.patch(import.meta.env.VITE_REACT_APP_API_URL+"/annaliticAccount/"+id,{
             name:name,
@@ -48,7 +48,7 @@ const FormUpdate = () => {
                                     type="text"
                                     required
                                     value={name}
-                                    onChange={(e)=>setName(e.target.value)}
+                                    onChange={(e : any)=>setName(e.target.value)}
                                     placeholder=""
                                 />
                             </div>
@@ -59,7 +59,7 @@ const FormUpdate = () => {
                                     type="number"
                                     required
                                     value={code}
-                                    onChange={(e)=>setCode(e.target.value)}
+                                    onChange={(e : any)=>setCode(e.target.value)}
                                     placeholder=""
                                 />
                             </div>
@@ -68,7 +68,7 @@ const FormUpdate = () => {
                                 <FormSelect 
                                     value={isActive}
                                     required 
-                                    onChange={(e)=>setIsActive(e.target.value)} 
+                                    onChange={(e : any)=>setIsActive(e.target.value)} 
                                     id="typePengajuanId"
                                     >
                                     <option></option>

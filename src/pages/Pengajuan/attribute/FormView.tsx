@@ -12,7 +12,7 @@ import { FormInput, FormLabel, FormSelect } from "../../../base-components/Form"
 import Litepicker from "../../../base-components/Litepicker";
 import { useNavigate, useParams } from 'react-router-dom';
 
-const FormUpdate = (props) => {
+const FormUpdate = (props : any) => {
     const {dataPengajuan} = props;
     const [msg, setMsg] = useState("");
 

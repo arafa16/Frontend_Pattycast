@@ -8,6 +8,7 @@ export interface Menu {
   pathname?: string;
   subMenu?: Menu[];
   ignore?: boolean;
+  admin?: boolean;
 }
 
 export interface SideMenuState {
@@ -21,9 +22,11 @@ const initialState: SideMenuState = {
       icon: "Activity",
       pathname: "/pengajuan",
       title: "Pengajuan",
+      admin: false,
     },{
       icon: "Home",
       title: "Dashboard Admin",
+      admin: true,
       subMenu: [
         {
           icon: "Activity",
@@ -44,11 +47,12 @@ const initialState: SideMenuState = {
     },{
       icon: "Home",
       title: "Setting",
+      admin: true,
       subMenu: [
         {
           icon: "Activity",
           pathname: "/coa",
-          title: "Coa",
+          title: "Coa"
         },
         {
           icon: "Activity",
@@ -70,9 +74,6 @@ const initialState: SideMenuState = {
           pathname: "/statusPengajuan",
           title: "Status Pengajuan",
         }
-
-
-        
       ],
     },
   ],

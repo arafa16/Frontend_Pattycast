@@ -8,14 +8,14 @@ import Judul from "./attribute/Judul";
 
 function Main() {
     const {id} = useParams();
-    const [users, setUsers] = useState<array>([]);
-    const [typePengajuan, setTypePengajuan] = useState<Array>([]);
-    const [dataPengajuan, setDataPengajuan] = useState<Array>([]);
-    const [status, setStatus] = useState<Array>([]);
-    const [statuses, setStatuses] = useState<Array>([]);
-    const [coaSelect, setCoaSelect] = useState<Array>([]);
-    const [costCenterSelect, setCostCenterSelect] = useState<Array>([]);
-    const [annaliticAccountSelect, setAnnaliticAccountSelect] = useState<Array>([]);
+    const [users, setUsers] = useState([]);
+    const [typePengajuan, setTypePengajuan] = useState([]);
+    const [dataPengajuan, setDataPengajuan] = useState<any>([]);
+    const [status, setStatus] = useState([]);
+    const [statuses, setStatuses] = useState([]);
+    const [coaSelect, setCoaSelect] = useState([]);
+    const [costCenterSelect, setCostCenterSelect] = useState([]);
+    const [annaliticAccountSelect, setAnnaliticAccountSelect] = useState([]);
 
     useEffect(()=>{
         getUser();

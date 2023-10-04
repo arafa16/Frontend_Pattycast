@@ -16,7 +16,7 @@ const DataUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {dataUsers, isDataUsersSuccess, isDataUsersError, isDataUsersLoading, messageDataUsers} = useSelector((state) => state.usersReducer);
+  const {dataUsers, isDataUsersSuccess, isDataUsersError, isDataUsersLoading, messageDataUsers} = useSelector((state : any) => state.usersReducer);
 
   useEffect(()=>{
     getDataUsers();
@@ -41,12 +41,12 @@ const DataUser = () => {
   }
 
   //hitung total page
-  const countPage = (jmlData) => {
+  const countPage = (jmlData : any) => {
     const total = jmlData/limit;
     setAllPage(Math.ceil(total));
   }
 
-  const changeStatus = (action) => {
+  const changeStatus = (action : any) => {
     setStatus(action)
     setPage(1);
   }

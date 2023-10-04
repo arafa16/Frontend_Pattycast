@@ -11,29 +11,29 @@ import { FormInput, FormLabel, FormSelect } from "../../../base-components/Form"
 import Litepicker from "../../../base-components/Litepicker";
 import { useNavigate } from 'react-router-dom';
 
-const Form = (props) => {
+const Form = (props : any) => {
     const {users, typePengajuan, statuses, coa, costCenter, annaliticAccount} = props;
 
-    const [userId, setUserId] = useState<string>("");
-    const [tanggal, setTanggal] = useState<string>("");
-    const [expense, setExpense] = useState<string>("");
-    const [advance, setAdvance] = useState<string>("");
-    const [coaId, setCoaId] = useState<string>("");
-    const [costCenterId, setCostCenterId] = useState<string>("");
-    const [annaliticAccountId, setAnnaliticAccountId] = useState<string>("");
-    const [typePengajuanId, setTypePengajuanId] = useState<string>("");
-    const [debit, setDebit] = useState<string>("");
-    const [credit, setCredit] = useState<string>("");
-    const [reference, setReference] = useState<string>("");
-    const [keterangan, setKeterangan] = useState<string>("");
-    const [statusId, setStatusId] = useState<string>("");
+    const [userId, setUserId] = useState("");
+    const [tanggal, setTanggal] = useState("");
+    const [expense, setExpense] = useState("");
+    const [advance, setAdvance] = useState("");
+    const [coaId, setCoaId] = useState("");
+    const [costCenterId, setCostCenterId] = useState("");
+    const [annaliticAccountId, setAnnaliticAccountId] = useState("");
+    const [typePengajuanId, setTypePengajuanId] = useState("");
+    const [debit, setDebit] = useState("");
+    const [credit, setCredit] = useState("");
+    const [reference, setReference] = useState("");
+    const [keterangan, setKeterangan] = useState("");
+    const [statusId, setStatusId] = useState("");
     const [msg, setMsg] = useState("");
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const {pengajuans, isPengajuanError, isPengajuanSuccess, isPengajuanLoading, messagePengajuan } = useSelector(
-        (state) => state.pengajuanReducer
+        (state : any) => state.pengajuanReducer
     );
 
       // Basic non sticky notification
@@ -65,14 +65,14 @@ const Form = (props) => {
         setStatusId("");
     }
 
-    const submitPengajuan = (e) => {
+    const submitPengajuan = (e : any) => {
         e.preventDefault();
         dispatch(SubmitPengajuan({
-            userId, 
-            tanggal, 
-            expense, 
-            advance, 
-            coaId, 
+            userId,
+            tanggal,
+            expense,
+            advance,
+            coaId,
             costCenterId,
             annaliticAccountId,
             debit,
@@ -80,7 +80,8 @@ const Form = (props) => {
             reference,
             keterangan,
             typePengajuanId,
-            statusId
+            statusId,
+            id: undefined
         }));
     }
 
@@ -113,12 +114,12 @@ const Form = (props) => {
                     <FormLabel htmlFor="input-wizard-1">User</FormLabel>
                     <FormSelect 
                         value={userId} 
-                        onChange={(e)=>setUserId(e.target.value)} 
+                        onChange={(e : any)=>setUserId(e.target.value)} 
                         id="input-wizard-6"
                         required
                         >
                         <option></option>
-                        {users.map((user, index)=>(
+                        {users.map((user : any, index : any)=>(
                             <option key={index} value={user.id}>{user.name}</option>
                         ))}
                     </FormSelect>
@@ -128,11 +129,11 @@ const Form = (props) => {
                     <FormSelect 
                         value={typePengajuanId}
                         required 
-                        onChange={(e)=>setTypePengajuanId(e.target.value)} 
+                        onChange={(e : any)=>setTypePengajuanId(e.target.value)} 
                         id="typePengajuanId"
                         >
                         <option></option>
-                        {typePengajuan.map((type, index)=>(
+                        {typePengajuan.map((type : any, index : any)=>(
                             <option key={index} value={type.id}>{type.name}</option>
                         ))}
                     </FormSelect>
@@ -163,7 +164,7 @@ const Form = (props) => {
                         id="expense"
                         type="text"
                         value={expense}
-                        onChange={(e)=>setExpense(e.target.value)}
+                        onChange={(e : any)=>setExpense(e.target.value)}
                         placeholder=""
                     />
                 </div>
@@ -173,7 +174,7 @@ const Form = (props) => {
                         id="advance"
                         type="text"
                         value={advance}
-                        onChange={(e)=>setAdvance(e.target.value)}
+                        onChange={(e : any)=>setAdvance(e.target.value)}
                         placeholder=""
                     />
                 </div>
@@ -182,11 +183,11 @@ const Form = (props) => {
                     <FormSelect 
                         value={coaId}
                         required 
-                        onChange={(e)=>setCoaId(e.target.value)} 
+                        onChange={(e : any)=>setCoaId(e.target.value)} 
                         id="coaId"
                         >
                         <option></option>
-                        {coa.map((data, index)=>(
+                        {coa.map((data : any, index : any)=>(
                             <option key={index} value={data.id}>{data.name}</option>
                         ))}
                     </FormSelect>
@@ -196,11 +197,11 @@ const Form = (props) => {
                     <FormSelect 
                         value={costCenterId}
                         required 
-                        onChange={(e)=>setCostCenterId(e.target.value)} 
+                        onChange={(e : any)=>setCostCenterId(e.target.value)} 
                         id="costCenter"
                         >
                         <option></option>
-                        {costCenter.map((data, index)=>(
+                        {costCenter.map((data : any, index : any)=>(
                             <option key={index} value={data.id}>{data.name}</option>
                         ))}
                     </FormSelect>
@@ -210,11 +211,11 @@ const Form = (props) => {
                     <FormSelect 
                         value={annaliticAccountId}
                         required 
-                        onChange={(e)=>setAnnaliticAccountId(e.target.value)} 
+                        onChange={(e : any)=>setAnnaliticAccountId(e.target.value)} 
                         id="analiticAccountId"
                         >
                         <option></option>
-                        {annaliticAccount.map((data, index)=>(
+                        {annaliticAccount.map((data : any, index : any)=>(
                             <option key={index} value={data.id}>{data.name}</option>
                         ))}
                     </FormSelect>
@@ -225,7 +226,7 @@ const Form = (props) => {
                         id="debit"
                         type="text"
                         value={debit}
-                        onChange={(e)=>setDebit(e.target.value)}
+                        onChange={(e : any)=>setDebit(e.target.value)}
                         placeholder=""
                     />
                 </div>
@@ -235,7 +236,7 @@ const Form = (props) => {
                         id="credit"
                         type="text"
                         value={credit}
-                        onChange={(e)=>setCredit(e.target.value)}
+                        onChange={(e : any)=>setCredit(e.target.value)}
                         placeholder=""
                     />
                 </div>
@@ -245,7 +246,7 @@ const Form = (props) => {
                         id="reference"
                         type="text"
                         value={reference}
-                        onChange={(e)=>setReference(e.target.value)}
+                        onChange={(e : any)=>setReference(e.target.value)}
                         placeholder=""
                     />
                 </div>
@@ -255,7 +256,7 @@ const Form = (props) => {
                         id="keterangan"
                         type="text"
                         value={keterangan}
-                        onChange={(e)=>setKeterangan(e.target.value)}
+                        onChange={(e : any)=>setKeterangan(e.target.value)}
                         placeholder=""
                     />
                 </div>
@@ -263,12 +264,12 @@ const Form = (props) => {
                     <FormLabel htmlFor="input-wizard-5">Status</FormLabel>
                     <FormSelect 
                         value={statusId} 
-                        onChange={(e)=>setStatusId(e.target.value)} 
+                        onChange={(e : any)=>setStatusId(e.target.value)} 
                         required
                         id="statusId"
                         >
                         <option></option>
-                        {statuses.map((status, index)=>(
+                        {statuses.map((status : any, index : any)=>(
                             <option key={index} value={status.id}>{status.name}</option>
                         ))}
                     </FormSelect>

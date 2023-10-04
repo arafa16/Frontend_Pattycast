@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import _ from "lodash";
 
-const Data = (props) => {
+const Data = (props : any) => {
     const {coa, clickStatus, status, allData, nextPage, prevPage, page, allPage} = props;
     const navigate = useNavigate();
 
@@ -78,7 +78,7 @@ const Data = (props) => {
                     </div>
                 </div>
                 <div className="overflow-x-auto sm:overflow-x-visible">
-                    {coa.rows && coa.rows.map((data, index) => (
+                    {coa.rows && coa.rows.map((data : any, index : any) => (
                     <div 
                         key={index} 
                         className="intro-y"

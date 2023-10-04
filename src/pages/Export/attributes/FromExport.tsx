@@ -5,7 +5,7 @@ import Litepicker from '../../../base-components/Litepicker'
 import axios from 'axios'
 import dayjs from 'dayjs'
 
-const FromExport = (props) => {
+const FromExport = (props : any) => {
     const {statuses} = props;
     const [statusId, setStatusId] = useState("");
 
@@ -13,7 +13,7 @@ const FromExport = (props) => {
         axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/export/`+statusId,{
             responseType: 'arraybuffer',
             headers: {'Content-Type': 'blob'},
-        }).then((response) => {
+        }).then((response : any) => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
@@ -38,7 +38,7 @@ const FromExport = (props) => {
                             id="statusId"
                             >
                             <option></option>
-                            {statuses.map((status, index)=>(
+                            {statuses.map((status  : any, index  : any)=>(
                                 <option key={index} value={status.id}>{status.name}</option>
                             ))}
                         </FormSelect>

@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, resetDataUsers } from '../../stores/features/userSlice';
 import ResetPassword from './attribute/ResetPassword';
+import { AsyncThunk } from '@reduxjs/toolkit';
 
 const ViewUser = () => {
     const {id} = useParams();
@@ -18,7 +19,7 @@ const ViewUser = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const {dataUsers, isDataUsersSuccess, isDataUsersError, isDataUsersLoading, messageDataUsers} = useSelector((state) => state.usersReducer);
+    const {dataUsers, isDataUsersSuccess, isDataUsersError, isDataUsersLoading, messageDataUsers} = useSelector((state : any) => state.usersReducer);
 
     useEffect(()=>{
         getDataUser();
@@ -47,8 +48,7 @@ const ViewUser = () => {
         navigate(`/updateUser/${id}`);
     }
 
-
-    const clickDelete = async() => {
+    const clickDelete = async(dispatch : any)=> {
         dispatch(deleteUser({id}));
     }
 

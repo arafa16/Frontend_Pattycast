@@ -3,7 +3,7 @@ import Button from "../../../base-components/Button";
 import LoadingIcon from '../../../base-components/LoadingIcon';
 import {useNavigate} from 'react-router-dom'
 
-const ButtonPtjb = (props) => {
+const ButtonPtjb = (props : any) => {
     const {linkBack, linkUpdate, deletePtjb} = props;
     const navigate = useNavigate();
 

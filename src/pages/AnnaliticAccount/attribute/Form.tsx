@@ -12,7 +12,7 @@ const Form = () => {
 
     const navigate = useNavigate();
 
-    const createAnnaliticAccount = async(e) => {
+    const createAnnaliticAccount = async(e : any) => {
         e.preventDefault();
         await axios.post(import.meta.env.VITE_REACT_APP_API_URL+"/annaliticAccount",{
             name:name,

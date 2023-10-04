@@ -2,7 +2,7 @@ import React from 'react'
 import Button from "../../../base-components/Button";
 import {useNavigate} from 'react-router-dom'
 
-const ButtonCoa = (props) => {
+const ButtonCoa = (props : any) => {
     const {linkBack, linkUpdate, deleteCoa} = props;
     
     const navigate = useNavigate();

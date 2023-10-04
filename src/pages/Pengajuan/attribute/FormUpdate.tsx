@@ -12,26 +12,26 @@ import { FormInput, FormLabel, FormSelect } from "../../../base-components/Form"
 import Litepicker from "../../../base-components/Litepicker";
 import { useNavigate, useParams } from 'react-router-dom';
 
-const FormUpdate = (props) => {
+const FormUpdate = (props : any) => {
     const {users, dataPengajuan, typePengajuan, coaSelect, costCenterSelect, annaliticAccountSelect} = props;
     const {id} = useParams();
 
-    const [tanggal, setTanggal] = useState<string>("");
-    const [coaId, setCoaId] = useState<string>("");
-    const [costCenterId, setCostCenterId] = useState<string>("");
-    const [annaliticAccountId, setAnnaliticAccountId] = useState<string>("");
-    const [typePengajuanId, setTypePengajuanId] = useState<string>("");
-    const [debit, setDebit] = useState<string>("");
-    const [credit, setCredit] = useState<string>("");
-    const [reference, setReference] = useState<string>("");
-    const [keterangan, setKeterangan] = useState<string>("");
+    const [tanggal, setTanggal] = useState("");
+    const [coaId, setCoaId] = useState("");
+    const [costCenterId, setCostCenterId] = useState("");
+    const [annaliticAccountId, setAnnaliticAccountId] = useState("");
+    const [typePengajuanId, setTypePengajuanId] = useState("");
+    const [debit, setDebit] = useState("");
+    const [credit, setCredit] = useState("");
+    const [reference, setReference] = useState("");
+    const [keterangan, setKeterangan] = useState("");
     const [msg, setMsg] = useState("");
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const {pengajuans, isPengajuanError, isPengajuanSuccess, isPengajuanLoading, messagePengajuan } = useSelector(
-        (state) => state.pengajuanReducer
+        (state : any) => state.pengajuanReducer
     );
 
       // Basic non sticky notification
@@ -81,12 +81,12 @@ const FormUpdate = (props) => {
         setKeterangan("");
     }
 
-    const submitPengajuan = (e) => {
+    const submitPengajuan = (e : any) => {
         e.preventDefault();
         dispatch(UpdatePengajuan({
             id,
             tanggal,
-            coaId, 
+            coaId,
             costCenterId,
             annaliticAccountId,
             debit,
@@ -94,6 +94,10 @@ const FormUpdate = (props) => {
             reference,
             keterangan,
             typePengajuanId,
+            expense: undefined,
+            advance: undefined,
+            userId: undefined,
+            statusId: undefined
         }));
     }
 
@@ -146,7 +150,7 @@ const FormUpdate = (props) => {
                         id="coaId"
                         >
                         <option></option>
-                        {coaSelect.map((data, index)=>(
+                        {coaSelect.map((data : any, index: any)=>(
                             <option key={index} value={data.id}>{data.name}</option>
                         ))}
                     </FormSelect>
@@ -160,7 +164,7 @@ const FormUpdate = (props) => {
                         id="costCenter"
                         >
                         <option></option>
-                        {costCenterSelect.map((data, index)=>(
+                        {costCenterSelect.map((data : any, index : any)=>(
                             <option key={index} value={data.id}>{data.name}</option>
                         ))}
                     </FormSelect>
@@ -174,7 +178,7 @@ const FormUpdate = (props) => {
                         id="analiticAccountId"
                         >
                         <option></option>
-                        {annaliticAccountSelect.map((data, index)=>(
+                        {annaliticAccountSelect.map((data : any, index : any)=>(
                             <option key={index} value={data.id}>{data.name}</option>
                         ))}
                     </FormSelect>
@@ -188,7 +192,7 @@ const FormUpdate = (props) => {
                         id="typePengajuanId"
                         >
                         <option></option>
-                        {typePengajuan.map((type, index)=>(
+                        {typePengajuan.map((type : any, index : any)=>(
                             <option key={index} value={type.id}>{type.name}</option>
                         ))}
                     </FormSelect>

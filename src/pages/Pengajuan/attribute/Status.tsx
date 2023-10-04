@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from "../../../base-components/Button";
 
-const Status = (props) => {
+const Status = (props : any) => {
     const {statuses, status} = props;
   return (
     <>
@@ -14,7 +14,7 @@ const Status = (props) => {
                 Draft
                 </div>
             </div> */}
-            {statuses.map((data, index)=>(
+            {statuses.map((data : any, index : any)=>(
                 <div 
                     className="z-10 flex items-center flex-1 mt-5 intro-x lg:text-center lg:mt-0 lg:block"
                     key={index}

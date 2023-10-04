@@ -12,7 +12,7 @@ const Form = () => {
 
     const navigate = useNavigate();
 
-    const createTypePengajuan = async(e) => {
+    const createTypePengajuan = async(e : any) => {
         e.preventDefault();
         await axios.post(import.meta.env.VITE_REACT_APP_API_URL+"/status",{
             name:name,

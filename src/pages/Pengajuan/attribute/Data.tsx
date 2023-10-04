@@ -6,7 +6,7 @@ import Lucide from "../../../base-components/Lucide";
 import clsx from "clsx";
 import dayjs from 'dayjs';
 
-const Data = (props) => {
+const Data = (props : any) => {
     const {dataPengajuans, page, limit, allPage, allData, nextPage, prevPage, changeSearch, search} = props;
     const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ const Data = (props) => {
                                     type="text"
                                     className="pl-10"
                                     value={search}
-                                    onChange={(e)=>changeSearch(e.target.value)}
+                                    onChange={(e : any)=>changeSearch(e.target.value)}
                                     placeholder="Search By ID"
                                 />
                                 <Lucide
@@ -72,7 +72,7 @@ const Data = (props) => {
                         </div>
                     </div>
                     <div className="overflow-x-auto sm:overflow-x-visible">
-                        {dataPengajuans && dataPengajuans.map((data, index) => (
+                        {dataPengajuans && dataPengajuans.map((data : any, index : any) => (
                         <div 
                             key={index} 
                             className="intro-y"

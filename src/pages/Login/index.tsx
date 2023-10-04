@@ -18,7 +18,7 @@ function Main() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {user, isError, isSuccess, isLoading, message} = useSelector(
-      (state) => state.auth
+      (state : any) => state.auth
   );
 
   useEffect(()=>{
@@ -29,10 +29,12 @@ function Main() {
   },[user, isSuccess, dispatch, navigate]);
 
 
-  const Auth = (e) => {
+  const Auth = (e : any) => {
       e.preventDefault();
-      dispatch(LoginUser({email, password}));
-      // dispatch(getMe());
+      dispatch(LoginUser({
+        email, password,
+        name: ""
+      }));
   }
 
   return (
@@ -69,7 +71,7 @@ function Main() {
                 </Button>
               </div>
               <div className="flex justify-between mt-4 px-2 text-xs text-slate-500 sm:text-sm">
-                <Link to={'/forgotPassword'}>*</Link>
+                <Link to={'/sendReset'}>Forgot Password ?</Link>
                 <Link to={'/register'}>Register</Link>
               </div>
             </form>

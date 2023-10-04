@@ -12,7 +12,7 @@ const Form = () => {
 
     const navigate = useNavigate();
 
-    const createTypePengajuan = async(e) => {
+    const createTypePengajuan = async(e : any) => {
         e.preventDefault();
         await axios.post(import.meta.env.VITE_REACT_APP_API_URL+"/typePengajuans",{
             name:name,
@@ -36,7 +36,7 @@ const Form = () => {
                                     type="text"
                                     required
                                     value={name}
-                                    onChange={(e)=>setName(e.target.value)}
+                                    onChange={(e : any)=>setName(e.target.value)}
                                     placeholder=""
                                 />
                             </div>
@@ -47,7 +47,7 @@ const Form = () => {
                                     type="number"
                                     required
                                     value={code}
-                                    onChange={(e)=>setCode(e.target.value)}
+                                    onChange={(e : any)=>setCode(e.target.value)}
                                     placeholder=""
                                 />
                             </div>
@@ -56,7 +56,7 @@ const Form = () => {
                                 <FormSelect 
                                     value={isActive}
                                     required 
-                                    onChange={(e)=>setIsActive(e.target.value)} 
+                                    onChange={(e : any)=>setIsActive(e.target.value)} 
                                     id="typePengajuanId"
                                     >
                                     <option></option>

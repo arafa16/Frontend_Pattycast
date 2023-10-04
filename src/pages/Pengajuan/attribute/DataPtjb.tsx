@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 
-const DataPtjb = (props) => {
+const DataPtjb = (props : any) => {
     const {dataPengajuan} = props;
     const statusCode = dataPengajuan.status && dataPengajuan.status.code;
     const jmlData = dataPengajuan.ptjbs && dataPengajuan.ptjbs.length;
     // const [codeStatus, setCodeStatus] = useState("");
     const navigate = useNavigate();
 
-    const clickView = (id) => {
+    const clickView = (id  : any) => {
         if(statusCode === 4){
             navigate(`/viewPtjb/${id}`);
         }
@@ -24,7 +24,7 @@ const DataPtjb = (props) => {
                     Data PTJB
                 </div>
                 <div className="overflow-x-auto sm:overflow-x-visible">
-                    {dataPengajuan.ptjbs && dataPengajuan.ptjbs.map((data, index) => (
+                    {dataPengajuan.ptjbs && dataPengajuan.ptjbs.map((data : any, index : any) => (
                     <div 
                         key={index} 
                         className="intro-y"

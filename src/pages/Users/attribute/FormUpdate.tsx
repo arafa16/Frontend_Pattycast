@@ -21,7 +21,7 @@ const FormUpdate = () => {
     const [msg, setMsg] = useState('');
 
     const {dataUsers, isDataUsersSuccess, isDataUsersError, isDataUsersLoading, messageDataUsers} = useSelector(
-        (state) => state.usersReducer
+        (state : any) => state.usersReducer
     )
 
     const navigate = useNavigate();
@@ -61,7 +61,7 @@ const FormUpdate = () => {
 
     },[isDataUsersSuccess, messageDataUsers]);
 
-    const submitUpdate = (e) => {
+    const submitUpdate = (e : any) => {
         e.preventDefault();
         dispatch(UpdateUser({
             id,
@@ -101,7 +101,7 @@ const FormUpdate = () => {
                                 type="text"
                                 defaultValue={name}
                                 required
-                                onChange={(e)=>setName(e.target.value)}
+                                onChange={(e : any)=>setName(e.target.value)}
                                 placeholder=""
                             />
                         </div>
@@ -112,7 +112,7 @@ const FormUpdate = () => {
                                 type="text"
                                 defaultValue={email}
                                 required
-                                onChange={(e)=>setEmail(e.target.value)}
+                                onChange={(e : any)=>setEmail(e.target.value)}
                                 placeholder=""
                             />
                         </div>
@@ -121,7 +121,7 @@ const FormUpdate = () => {
                             <FormSelect 
                                 value={isAdmin}
                                 required 
-                                onChange={(e)=>setIsAdmin(e.target.value)} 
+                                onChange={(e : any)=>setIsAdmin(e.target.value)} 
                                 id="isAdmin"
                                 >
                                 <option></option>
@@ -134,7 +134,7 @@ const FormUpdate = () => {
                             <FormSelect 
                                 value={isActive}
                                 required 
-                                onChange={(e)=>setIsActive(e.target.value)} 
+                                onChange={(e : any)=>setIsActive(e.target.value)} 
                                 id="isActive"
                                 >
                                 <option></option>

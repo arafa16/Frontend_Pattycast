@@ -2,11 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface variabel {
-    dataUsers: Array;
+    dataUsers: any;
     isDataUsersError: boolean;
     isDataUsersSuccess: boolean;
     isDataUsersLoading: boolean;
-    messageDataUsers: string;
+    messageDataUsers: any;
 }
 
 const initialState : variabel = {
@@ -21,19 +21,28 @@ interface varDataUser {
     name: String;
     email: String;    
     password: String;
-    isAdmin: boolean;
-    isActive: boolean;
-    id:number;
+    isAdmin: any;
+    isActive: any;
+    id:any;
+    limit:number;
+    page:number;
+    status:any;
 }
 
-export const getUsers = createAsyncThunk("user/getUsers", async(dataUsers, thunkAPI) => {
+interface varDataGetUser {
+    limit:number;
+    page:number;
+    status:any;
+}
+
+export const getUsers  : any = createAsyncThunk("user/getUsers", async(dataUsers : varDataGetUser, thunkAPI) => {
     try {
         const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/users/${dataUsers.limit}&${dataUsers.page}&${dataUsers.status}`,{
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         console.log(response, 'response')
         return response.data;
-    } catch (error : void) {
+    } catch (error : any) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
@@ -41,14 +50,18 @@ export const getUsers = createAsyncThunk("user/getUsers", async(dataUsers, thunk
     }
 });
 
-export const getUserById = createAsyncThunk("user/getUserById", async(dataUsers, thunkAPI) => {
+interface varDataId {
+    id:any;
+}
+
+export const getUserById  : any = createAsyncThunk("user/getUserById", async(dataUsers : varDataId, thunkAPI) => {
     try {
         const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/users/${dataUsers.id}`,{
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         console.log(response.data, 'response by id')
         return response.data;
-    } catch (error : void) {
+    } catch (error : any) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
@@ -56,7 +69,16 @@ export const getUserById = createAsyncThunk("user/getUserById", async(dataUsers,
     }
 });
 
-export const UpdateUser = createAsyncThunk("user/UpdateUser", async(dataUsers : varDataUser, thunkAPI) => {
+interface varDataUpdate {
+    name: String;
+    email: String;    
+    // password: String;
+    isAdmin: any;
+    isActive: any;
+    id:any;
+}
+
+export const UpdateUser : any = createAsyncThunk("user/UpdateUser", async(dataUsers :  varDataUpdate, thunkAPI) => {
     try {
         const response = await axios.patch(import.meta.env.VITE_REACT_APP_API_URL+'/users/'+dataUsers.id, {
             name: dataUsers.name,
@@ -67,7 +89,7 @@ export const UpdateUser = createAsyncThunk("user/UpdateUser", async(dataUsers : 
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error : void) {
+    } catch (error : any) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
@@ -75,16 +97,18 @@ export const UpdateUser = createAsyncThunk("user/UpdateUser", async(dataUsers : 
     }
 });
 
+interface varDataId {
+    id:any;
+}
 
-
-export const deleteUser = createAsyncThunk("user/deleteUser", async(dataUsers, thunkAPI) => {
+export const deleteUser : any = createAsyncThunk("user/deleteUser", async(dataUsers : varDataId, thunkAPI) => {
     try {
         const response = await axios.delete(`${import.meta.env.VITE_REACT_APP_API_URL}/users/${dataUsers.id}`,{
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
 
         return response.data;
-    } catch (error : void) {
+    } catch (error : any) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);

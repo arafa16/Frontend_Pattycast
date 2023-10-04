@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Judul = (props) => {
+const Judul = (props :any) => {
     const {textJudul} = props;
   return (
     <>

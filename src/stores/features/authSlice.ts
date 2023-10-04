@@ -2,11 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface variabel {
-    users: Array;
+    users: any;
     isError: boolean;
     isSuccess: boolean;
     isLoading: boolean;
-    message: string;
+    message: any;
 }
 
 const initialState : variabel = {
@@ -23,7 +23,7 @@ interface varUsers {
     password: string;
 }
 
-export const LoginUser = createAsyncThunk("user/LoginUser", async(users : varUsers, thunkAPI) => {
+export const LoginUser  : any = createAsyncThunk("user/LoginUser", async(users : varUsers, thunkAPI) => {
     try {
         const response = await axios.post(import.meta.env.VITE_REACT_APP_API_URL+'/login', {
             email: users.email,
@@ -32,7 +32,7 @@ export const LoginUser = createAsyncThunk("user/LoginUser", async(users : varUse
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (errorv: void) {
+    } catch (error: any) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
@@ -40,7 +40,7 @@ export const LoginUser = createAsyncThunk("user/LoginUser", async(users : varUse
     }
 });
 
-export const RegisterUser = createAsyncThunk("user/RegisterUser", async(users : varUsers, thunkAPI) => {
+export const RegisterUser  : any = createAsyncThunk("user/RegisterUser", async(users : varUsers, thunkAPI) => {
     try {
         const response = await axios.post(import.meta.env.VITE_REACT_APP_API_URL+'/users', {
             name: users.name,
@@ -50,7 +50,7 @@ export const RegisterUser = createAsyncThunk("user/RegisterUser", async(users : 
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error) {
+    } catch (error : any) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
@@ -58,13 +58,13 @@ export const RegisterUser = createAsyncThunk("user/RegisterUser", async(users : 
     }
 });
 
-export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
+export const getMe : any = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
     try {
         const response = await axios.get(import.meta.env.VITE_REACT_APP_API_URL+'/me',{
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error) {
+    } catch (error : any) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
@@ -72,7 +72,7 @@ export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
     }
 });
 
-export const LogOut = createAsyncThunk("user/LogOut", async() => {
+export const LogOut : any = createAsyncThunk("user/LogOut", async() => {
     await axios.delete(import.meta.env.VITE_REACT_APP_API_URL+'/logout',{
         withCredentials: true, // Now this is was the missing piece in the client side 
     });

@@ -13,16 +13,16 @@ import Judul from "./attribute/Judul";
 
 function Main() {
   // const [users, setUsers] = useState<array>([]);
-  const [typePengajuan, setTypePengajuan] = useState<Array>([]);
-  const [status, setStatus] = useState<Array>([]);
-  const [statuses, setStatuses] = useState<Array>([]);
-  const [coa, setCoa] = useState<Array>([]);
-  const [costCenter, setCostCenter] = useState<Array>([]);
-  const [annaliticAccount, setAnnaliticAccount] = useState<Array>([]);
+  const [typePengajuan, setTypePengajuan] = useState([]);
+  const [status, setStatus] = useState([]);
+  const [statuses, setStatuses] = useState([]);
+  const [coa, setCoa] = useState([]);
+  const [costCenter, setCostCenter] = useState([]);
+  const [annaliticAccount, setAnnaliticAccount] = useState([]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {users, isError} = useSelector((state) => state.auth);
+  const {users, isError} = useSelector((state : any) => state.auth);
 
   useEffect(() => {
     dispatch(getMe());

@@ -9,12 +9,17 @@ import { DeletePtjbRedux, resetPtjb } from '../../stores/features/ptjbSlice';
 
 const ViewPtjbAdmin = () => {
   const {id} = useParams();
-  const [ptjb, setPtjb] = useState([])
+
+  interface Data {
+      id?:any;
+      pengajuan?:any;
+  }
+  const [ptjb, setPtjb] = useState<Data>({});
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {dataPtjb, isDataPtjbError, isDataPtjbSuccess, isDataPtjbLoading, messageDataPtjb} = useSelector((state) => state.ptjbReducer);
+  const {dataPtjb, isDataPtjbError, isDataPtjbSuccess, isDataPtjbLoading, messageDataPtjb} = useSelector((state : any) => state.ptjbReducer);
 
   useEffect(()=>{
     getPtjb();

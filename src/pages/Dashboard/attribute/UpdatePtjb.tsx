@@ -6,7 +6,7 @@ import LoadingIcon from '../../../base-components/LoadingIcon'
 import { useDispatch, useSelector } from 'react-redux';
 import { UpdatePtjbRedux, resetPtjb } from '../../../stores/features/ptjbSlice';
 
-const UpdatePtjb = (props) => {
+const UpdatePtjb = (props : any) => {
     const {ptjb} = props;
     const {id} = useParams();
 
@@ -16,7 +16,7 @@ const UpdatePtjb = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const {dataPtjb, isDataPtjbError, isDataPtjbSuccess, isDataPtjbLoading, messageDataPtjb} = useSelector((state) => state.ptjbReducer);
+    const {dataPtjb, isDataPtjbError, isDataPtjbSuccess, isDataPtjbLoading, messageDataPtjb} = useSelector((state : any) => state.ptjbReducer);
 
     useEffect(()=>{
         if(isDataPtjbSuccess && messageDataPtjb){
@@ -34,7 +34,7 @@ const UpdatePtjb = (props) => {
         setKeterangan(ptjb.keterangan);
     }
 
-    const updatePtjb = (e) => {
+    const updatePtjb = (e : any) => {
         e.preventDefault();
         dispatch(UpdatePtjbRedux({
             nominal,

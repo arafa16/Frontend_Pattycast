@@ -12,7 +12,7 @@ import { FormInput, FormLabel, FormSelect } from "../../../base-components/Form"
 import Litepicker from "../../../base-components/Litepicker";
 import { useNavigate, useParams } from 'react-router-dom';
 
-const FormUpdate = (props) => {
+const FormUpdate = (props : any) => {
     const {users, dataPengajuan, typePengajuan, statuses, coa, costCenter, annaliticAccount} = props;
     const {id} = useParams();
 
@@ -35,7 +35,7 @@ const FormUpdate = (props) => {
     const dispatch = useDispatch();
 
     const {pengajuans, isPengajuanError, isPengajuanSuccess, isPengajuanLoading, messagePengajuan } = useSelector(
-        (state) => state.pengajuanReducer
+        (state : any) => state.pengajuanReducer
     );
 
       // Basic non sticky notification
@@ -89,7 +89,7 @@ const FormUpdate = (props) => {
         setStatusId("");
     }
 
-    const submitPengajuan = (e) => {
+    const submitPengajuan = (e : any) => {
         e.preventDefault();
         dispatch(UpdatePengajuan({
             id,
@@ -140,12 +140,12 @@ const FormUpdate = (props) => {
                     <FormLabel htmlFor="input-wizard-1">User</FormLabel>
                     <FormSelect 
                         value={userId} 
-                        onChange={(e)=>setUserId(e.target.value)} 
+                        onChange={(e : any)=>setUserId(e.target.value)} 
                         id="input-wizard-6"
                         required
                         >
                         <option></option>
-                        {users.map((user, index)=>(
+                        {users.map((user : any, index : any)=>(
                             <option key={index} value={user.id}>{user.name}</option>
                         ))}
                     </FormSelect>
@@ -155,11 +155,11 @@ const FormUpdate = (props) => {
                     <FormSelect 
                         value={typePengajuanId}
                         required 
-                        onChange={(e)=>setTypePengajuanId(e.target.value)} 
+                        onChange={(e : any)=>setTypePengajuanId(e.target.value)} 
                         id="typePengajuanId"
                         >
                         <option></option>
-                        {typePengajuan.map((type, index)=>(
+                        {typePengajuan.map((type : any, index : any)=>(
                             <option key={index} value={type.id}>{type.name}</option>
                         ))}
                     </FormSelect>
@@ -190,7 +190,7 @@ const FormUpdate = (props) => {
                         id="expense"
                         type="text"
                         defaultValue={expense}
-                        onChange={(e)=>setExpense(e.target.value)}
+                        onChange={(e : any)=>setExpense(e.target.value)}
                         placeholder=""
                     />
                 </div>
@@ -200,7 +200,7 @@ const FormUpdate = (props) => {
                         id="advance"
                         type="text"
                         defaultValue={advance}
-                        onChange={(e)=>setAdvance(e.target.value)}
+                        onChange={(e : any)=>setAdvance(e.target.value)}
                         placeholder=""
                     />
                 </div>
@@ -209,11 +209,11 @@ const FormUpdate = (props) => {
                     <FormSelect 
                         value={coaId}
                         required 
-                        onChange={(e)=>setCoaId(e.target.value)} 
+                        onChange={(e : any)=>setCoaId(e.target.value)} 
                         id="coaId"
                         >
                         <option></option>
-                        {coa.map((data, index)=>(
+                        {coa.map((data : any, index : any)=>(
                             <option key={index} value={data.id}>{data.name}</option>
                         ))}
                     </FormSelect>
@@ -223,11 +223,11 @@ const FormUpdate = (props) => {
                     <FormSelect 
                         value={costCenterId}
                         required 
-                        onChange={(e)=>setCostCenterId(e.target.value)} 
+                        onChange={(e  : any)=>setCostCenterId(e.target.value)} 
                         id="costCenter"
                         >
                         <option></option>
-                        {costCenter.map((data, index)=>(
+                        {costCenter.map((data : any, index : any)=>(
                             <option key={index} value={data.id}>{data.name}</option>
                         ))}
                     </FormSelect>
@@ -237,11 +237,11 @@ const FormUpdate = (props) => {
                     <FormSelect 
                         value={annaliticAccountId}
                         required 
-                        onChange={(e)=>setAnnaliticAccountId(e.target.value)} 
+                        onChange={(e : any)=>setAnnaliticAccountId(e.target.value)} 
                         id="analiticAccountId"
                         >
                         <option></option>
-                        {annaliticAccount.map((data, index)=>(
+                        {annaliticAccount.map((data : any, index : any)=>(
                             <option key={index} value={data.id}>{data.name}</option>
                         ))}
                     </FormSelect>
@@ -252,7 +252,7 @@ const FormUpdate = (props) => {
                         id="debit"
                         type="text"
                         defaultValue={debit}
-                        onChange={(e)=>setDebit(e.target.value)}
+                        onChange={(e : any)=>setDebit(e.target.value)}
                         placeholder=""
                     />
                 </div>
@@ -262,7 +262,7 @@ const FormUpdate = (props) => {
                         id="credit"
                         type="text"
                         defaultValue={credit}
-                        onChange={(e)=>setCredit(e.target.value)}
+                        onChange={(e : any)=>setCredit(e.target.value)}
                         placeholder=""
                     />
                 </div>
@@ -272,7 +272,7 @@ const FormUpdate = (props) => {
                         id="reference"
                         type="text"
                         defaultValue={reference}
-                        onChange={(e)=>setReference(e.target.value)}
+                        onChange={(e : any)=>setReference(e.target.value)}
                         placeholder=""
                     />
                 </div>
@@ -282,7 +282,7 @@ const FormUpdate = (props) => {
                         id="keterangan"
                         type="text"
                         defaultValue={keterangan}
-                        onChange={(e)=>setKeterangan(e.target.value)}
+                        onChange={(e : any)=>setKeterangan(e.target.value)}
                         placeholder=""
                     />
                 </div>
@@ -290,12 +290,12 @@ const FormUpdate = (props) => {
                     <FormLabel htmlFor="input-wizard-5">Status</FormLabel>
                     <FormSelect 
                         value={statusId} 
-                        onChange={(e)=>setStatusId(e.target.value)} 
+                        onChange={(e : any)=>setStatusId(e.target.value)} 
                         required
                         id="statusId"
                         >
                         <option></option>
-                        {statuses.map((status, index)=>(
+                        {statuses.map((status : any, index : any)=>(
                             <option key={index} value={status.code}>{status.name}</option>
                         ))}
                     </FormSelect>

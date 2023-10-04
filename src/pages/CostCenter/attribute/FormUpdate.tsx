@@ -24,7 +24,7 @@ const FormUpdate = () => {
         setIsActive(response.data && response.data.isActive ? '1' : '0');
     }
 
-    const updateCostCenter = async(e) => {
+    const updateCostCenter = async(e : any) => {
         e.preventDefault();
         await axios.patch(import.meta.env.VITE_REACT_APP_API_URL+"/costCenter/"+id,{
             name:name,

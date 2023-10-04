@@ -29,7 +29,7 @@ function Main() {
   const dispatch = useDispatch();
 
   const {pengajuans, isPengajuanError, isPengajuanSuccess, isPengajuanLoading, messagePengajuan } = useSelector(
-      (state) => state.pengajuanReducer
+      (state : any) => state.pengajuanReducer
   );
 
   useEffect(()=>{
@@ -79,7 +79,7 @@ function Main() {
   }
 
   //hitung total page
-  const countPage = (jmlData) => {
+  const countPage = (jmlData : any) => {
     const total = jmlData/limit;
     setAllPage(Math.ceil(total));
   }
@@ -98,18 +98,18 @@ function Main() {
     }
   }
 
-  const changeType = (id) => {
+  const changeType = (id : any) => {
     setType(id)
     setPage(1);
     setStatus(0)
   }
 
-  const changeStatus = (id) => {
+  const changeStatus = (id : any) => {
     setStatus(id);
     setPage(1);
   }
 
-  const changeSearch = (code) => {
+  const changeSearch = (code  : any) => {
     setSearch(code);
     setPage(1);
     setType(0);

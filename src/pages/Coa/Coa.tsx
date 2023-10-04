@@ -21,12 +21,12 @@ const Coa = () => {
         setAllData(response.data.count);
     }
 
-    const clickStatus = (code) => {
+    const clickStatus = (code : any) => {
         setStatus(code)
     }
 
     //hitung total page
-  const countPage = (jmlData) => {
+  const countPage = (jmlData : any) => {
     const total = jmlData/limit;
     setAllPage(Math.ceil(total));
   }

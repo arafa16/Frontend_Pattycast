@@ -14,15 +14,22 @@ import DataPtjb from "./attribute/DataPtjb";
 
 function Main() {
     const {id} = useParams();
-    const [dataPengajuan, setDataPengajuan] = useState<Array>([]);
-    const [statuses, setStatuses] = useState<Array>([]);
+
+    interface Data {
+      id?:string
+      status?:any
+    }
+
+    const [dataPengajuan, setDataPengajuan] = useState<Data>({});
+    const [statuses, setStatuses] = useState([]);
     // const [statusId, setStatusId] = useState(2);
+    
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const {pengajuans, isPengajuanError, isPengajuanSuccess, isPengajuanLoading, messagePengajuan } = useSelector(
-        (state) => state.pengajuanReducer
+        (state : any) => state.pengajuanReducer
     );
 
     useEffect(()=>{
@@ -45,11 +52,23 @@ function Main() {
       setStatuses(response.data);
     }
 
-    const clickChangeStatus = (code) => {
+    const clickChangeStatus = (code : any) => {
       const statusId = code;
       dispatch(UpdatePengajuan({
-          id,
-          statusId
+        id,
+        statusId,
+        tanggal: undefined,
+        coaId: undefined,
+        costCenterId: undefined,
+        expense: undefined,
+        advance: undefined,
+        annaliticAccountId: undefined,
+        debit: undefined,
+        credit: undefined,
+        reference: undefined,
+        keterangan: undefined,
+        typePengajuanId: undefined,
+        userId: undefined
       }));
       getDataPengajuan();
     }

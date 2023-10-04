@@ -22,7 +22,7 @@ const CostCenter = () => {
     }
 
     //hitung total page
-    const countPage = (jmlData) => {
+    const countPage = (jmlData : any) => {
         const total = jmlData/limit;
         setAllPage(Math.ceil(total));
     }
@@ -41,7 +41,7 @@ const CostCenter = () => {
         }
     }
 
-    const clickStatus = (code) => {
+    const clickStatus = (code : any) => {
         setStatus(code)
     }
 

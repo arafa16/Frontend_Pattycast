@@ -2,11 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface variabel {
-    dataPtjb: Array;
+    dataPtjb: any;
     isDataPtjbError: boolean;
     isDataPtjbSuccess: boolean;
     isDataPtjbLoading: boolean;
-    messageDataPtjb: string;
+    messageDataPtjb: any;
 }
 
 const initialState : variabel = {
@@ -18,12 +18,12 @@ const initialState : variabel = {
 }
 
 interface varDataPtjb {
-    nominal: number; 
+    nominal: any; 
     keterangan: string; 
-    id:number;
+    id: any;
 }
 
-export const SubmitPtjb = createAsyncThunk("user/SubmitPtjb", async(dataPtjb : varDataPtjb, thunkAPI) => {
+export const SubmitPtjb  : any = createAsyncThunk("user/SubmitPtjb", async(dataPtjb : varDataPtjb, thunkAPI) => {
     try {
         const response = await axios.post(import.meta.env.VITE_REACT_APP_API_URL+'/ptjb', {
             nominal: dataPtjb.nominal,
@@ -33,7 +33,7 @@ export const SubmitPtjb = createAsyncThunk("user/SubmitPtjb", async(dataPtjb : v
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error : void) {
+    } catch (error : any) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
@@ -41,7 +41,7 @@ export const SubmitPtjb = createAsyncThunk("user/SubmitPtjb", async(dataPtjb : v
     }
 });
 
-export const UpdatePtjbRedux = createAsyncThunk("user/UpdatePtjb", async(dataPtjb : varDataPtjb, thunkAPI) => {
+export const UpdatePtjbRedux  : any = createAsyncThunk("user/UpdatePtjb", async(dataPtjb : varDataPtjb, thunkAPI) => {
     try {
         const response = await axios.patch(`${import.meta.env.VITE_REACT_APP_API_URL}/ptjb/${dataPtjb.id}`, {
             nominal: dataPtjb.nominal,
@@ -50,7 +50,7 @@ export const UpdatePtjbRedux = createAsyncThunk("user/UpdatePtjb", async(dataPtj
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error : void) {
+    } catch (error : any) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
@@ -58,13 +58,17 @@ export const UpdatePtjbRedux = createAsyncThunk("user/UpdatePtjb", async(dataPtj
     }
 });
 
-export const DeletePtjbRedux = createAsyncThunk("user/DeletePtjb", async(dataPtjb : varDataPtjb, thunkAPI) => {
+interface varDeletePtjb {
+    id: any;
+}
+
+export const DeletePtjbRedux  : any = createAsyncThunk("user/DeletePtjb", async(dataPtjb : varDeletePtjb, thunkAPI) => {
     try {
         const response = await axios.delete(`${import.meta.env.VITE_REACT_APP_API_URL}/ptjb/${dataPtjb.id}`,{
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error : void) {
+    } catch (error : any) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);

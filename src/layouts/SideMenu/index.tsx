@@ -20,20 +20,38 @@ import DarkModeSwitcher from "../../components/DarkModeSwitcher";
 import MainColorSwitcher from "../../components/MainColorSwitcher";
 import SimpleBar from "simplebar";
 
+import {useDispatch, useSelector} from "react-redux";
+import {getMe} from "../../stores/features/authSlice";
+
 function Main() {
   const location = useLocation();
   const [formattedMenu, setFormattedMenu] = useState<
     Array<FormattedMenu | string>
   >([]);
+  const [activeMenu, setActiveMenu] = useState(true);
   const sideMenuStore = useAppSelector(selectSideMenu);
   const sideMenu = () => nestedMenu(sideMenuStore, location);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {users, isError} = useSelector((state : any) => state.auth);
+
+  useEffect(() => {
+    dispatch(getMe());
+  },[]);
+
+  useEffect(() => {
+    if (isError) {
+      navigate("/login", { replace: true });
+    }
+  }, [isError]);
 
   useEffect(() => {
     setFormattedMenu(sideMenu());
   }, [sideMenuStore, location.pathname]);
 
   const [simpleMenu, setSimpleMenu] = useCallbackState({
-    active: false,
+    active: true,
     hover: false,
     wrapper: false,
   });
@@ -129,7 +147,7 @@ function Main() {
       {/* BEGIN: Side Menu */}
       <nav
         className={clsx([
-          "absolute z-[52] xl:z-auto -ml-[100%] xl:ml-0 transition-[width,margin-left] w-[270px] h-screen flex flex-col pl-6 pr-2 overflow-hidden bg-primary bg-gradient-to-b from-primary via-primary/70 to-black/30 duration-300 ease-in-out dark:bg-darkmode-800 dark:bg-none",
+          "absolute z-[52] xl:z-[52] -ml-[100%] xl:ml-0 transition-[width,margin-left] w-[270px] h-screen flex flex-col pl-6 pr-2 overflow-hidden bg-primary bg-gradient-to-b from-primary via-primary/70 to-black/30 duration-300 ease-in-out dark:bg-darkmode-800 dark:bg-none",
           "before:content-[''] before:ease-in-out xl:before:ease before:duration-300 xl:before:duration-[0s] before:transition-opacity xl:before:transition-none before:inset-0 xl:before:top-0 xl:before:left-0 before:bg-black/60 xl:before:bg-transparent before:z-[-2] xl:before:z-0 xl:before:visible before:bg-[length:270px_auto] before:bg-[right_3.5rem] xl:before:bg-[url('../../assets/images/backgrounds/bg-main.png')] before:animate-[0.4s_ease-in-out_0.3s_intro-divider] before:animate-fill-mode-forwards before:w-full before:h-screen before:fixed xl:before:absolute before:top-0 before:left-0 before:bg-no-repeat",
           "after:content-[''] after:dark:bg-darkmode-800 xl:after:dark:bg-transparent after:bg-primary xl:after:bg-transparent after:w-full after:h-screen after:absolute after:top-0 after:left-0 xl:after:mt-[3.5rem] after:bg-gradient-to-b after:from-primary after:via-primary/70 after:to-black/10 after:dark:from-darkmode-800 after:dark:via-darkmode-800/70",
           {
@@ -194,13 +212,13 @@ function Main() {
               ])}
               data-toggler
             >
-              {/* <Lucide
+              <Lucide
                 icon="ArrowLeftCircle"
                 className={clsx([
                   "w-5 h-5 transition-transform duration-300 ease-in-out",
                   simpleMenu.active && "transform rotate-180",
                 ])}
-              /> */}
+              />
             </a>
             <a
               href="#"
@@ -217,7 +235,7 @@ function Main() {
         <div
           ref={scrollableRef}
           className={clsx([
-            "relative z-10 -ml-5 pl-5 pt-5 pb-5 h-full overflow-y-auto [-webkit-mask-image:-webkit-linear-gradient(top,rgba(0,0,0,0),black_30px)] [&:-webkit-scrollbar]:w-0 [&:-webkit-scrollbar]:bg-transparent",
+            "relative z-30 -ml-5 pl-5 pt-5 pb-5 h-full overflow-y-auto [-webkit-mask-image:-webkit-linear-gradient(top,rgba(0,0,0,0),black_30px)] [&:-webkit-scrollbar]:w-0 [&:-webkit-scrollbar]:bg-transparent",
             "[&_.simplebar-content]:p-0 [&_.simplebar-track.simplebar-vertical]:w-[10px] [&_.simplebar-track.simplebar-vertical]:pt-[3.1rem] [&_.simplebar-track.simplebar-vertical]:mr-0.5 [&_.simplebar-track.simplebar-vertical_.simplebar-scrollbar]:before:bg-white/20",
           ])}
         >
@@ -227,7 +245,7 @@ function Main() {
               typeof menu === "string" ? (
                 <li
                   className={clsx([
-                    "mb-4 w-full h-5 pl-5 text-xs relative [&:not(:first-child)]:mt-6",
+                    " mb-4 w-full h-5 pl-5 text-xs relative [&:not(:first-child)]:mt-6",
                     !simpleMenu.active && "text-white/50",
                     simpleMenu.active &&
                       "text-white/50 xl:text-transparent whitespace-nowrap",
@@ -254,6 +272,7 @@ function Main() {
                       }`]: !menu.active,
                     })}
                     menu={menu}
+                    users={users && users}
                     simpleMenu={simpleMenu}
                     formattedMenuState={[formattedMenu, setFormattedMenu]}
                     level="first"
@@ -286,6 +305,7 @@ function Main() {
                                 }`]: !subMenu.active,
                               })}
                               menu={subMenu}
+                              users={users && users}
                               simpleMenu={simpleMenu}
                               formattedMenuState={[
                                 formattedMenu,
@@ -324,6 +344,7 @@ function Main() {
                                             }`]: !lastSubMenu.active,
                                           })}
                                           menu={lastSubMenu}
+                                          users={users && users}
                                           simpleMenu={simpleMenu}
                                           formattedMenuState={[
                                             formattedMenu,
@@ -356,14 +377,18 @@ function Main() {
       <div
         ref={wrapperRef}
         className={clsx([
-          "ml-0 xl:ml-auto pb-6 px-3 sm:px-4 xl:pl-0 xl:pr-6 max-w-full xl:max-w-none min-w-0 h-screen overflow-y-auto overflow-x-hidden flex-1",
+          "ml-0",
+          `${simpleMenu.active ? 'xl:ml-32' : 'xl:ml-auto'}`,
+          "pb-6 px-3 sm:px-4 xl:pl-0 xl:pr-6 max-w-full xl:max-w-none min-w-0 h-screen overflow-y-auto overflow-x-hidden flex-1",
           "before:content-[''] before:w-full before:h-px before:block",
           {
             "xl:ml-[112px] px-3 sm:px-4 xl:pl-0": simpleMenu.wrapper,
           },
         ])}
       >
-        <TopBar toggleMobileMenu={toggleMobileMenu} />
+        <TopBar 
+          users={users && users}
+          toggleMobileMenu={toggleMobileMenu} />
         <div
           className={clsx([
             "mt-[2.2rem] rounded-[1.6rem] w-full min-h-screen relative bg-slate-100 px-4 sm:px-6 pt-0.5 pb-6 dark:bg-darkmode-700",
@@ -381,6 +406,7 @@ function Main() {
 
 function Menu(props: {
   className?: string;
+  users?: any;
   simpleMenu: {
     active: boolean;
     hover: boolean;
@@ -400,6 +426,7 @@ function Menu(props: {
     <a
       href={props.menu.subMenu ? "#" : props.menu.pathname}
       className={clsx([
+        `${!props.menu.admin ? '' : props.users && props.users.isAdmin ? '' : 'hidden'  }`,
         "h-[50px] flex items-center pl-5 text-white mb-1 relative dark:text-slate-300",
         {
           "bg-primary rounded-2xl dark:bg-transparent":

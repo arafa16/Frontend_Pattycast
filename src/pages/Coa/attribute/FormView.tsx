@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormLabel } from '../../../base-components/Form'
 
-const FormView = (props) => {
+const FormView = (props : any) => {
     const {dataCoa} = props;
 
     return (

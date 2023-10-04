@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { resetDataUser, UpdatePassword } from '../../../stores/features/daftarSlice';
 import { useParams } from 'react-router-dom';
 
-const ResetPassword = (props) => {
+const ResetPassword = (props : any) => {
     const {viewModal, setViewModal, id} = props;
     const [password, setPassword] = useState('');
     const sendButtonRef = useRef(null);
@@ -16,7 +16,7 @@ const ResetPassword = (props) => {
     const dispatch = useDispatch();
 
     const {dataUser, isDataUserLoading, isDataUserError, isDataUserSuccess, messageDataUser} = useSelector(
-        (state) => state.daftar
+        (state : any) => state.daftar
     )
 
     useEffect(()=>{
@@ -27,7 +27,7 @@ const ResetPassword = (props) => {
         }
     },[isDataUserSuccess, messageDataUser])
 
-    const updatePassword = (e) => {
+    const updatePassword = (e : any) => {
         e.preventDefault();
         dispatch(UpdatePassword({
             id,
@@ -58,7 +58,7 @@ const ResetPassword = (props) => {
                             id="modal-form-1"
                             type="text"
                             value={password}
-                            onChange={(e)=>setPassword(e.target.value)}
+                            onChange={(e : any)=>setPassword(e.target.value)}
                             placeholder="password"
                         />
                         </div>

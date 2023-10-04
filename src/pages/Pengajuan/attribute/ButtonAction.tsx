@@ -3,7 +3,7 @@ import Button from "../../../base-components/Button";
 import LoadingIcon from '../../../base-components/LoadingIcon';
 import {useNavigate} from 'react-router-dom'
 
-const ButtonAction = (props) => {
+const ButtonAction = (props : any) => {
     const {linkEdit, linkBack, linkCreatePtjb, status, clickChangeStatus, isPengajuanLoading} = props;
     const navigate = useNavigate();
 

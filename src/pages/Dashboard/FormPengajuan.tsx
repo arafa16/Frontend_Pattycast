@@ -5,12 +5,12 @@ import Form from "./attribute/Form";
 import axios from "axios";
 
 function Main() {
-    const [users, setUsers] = useState<array>([]);
-    const [typePengajuan, setTypePengajuan] = useState<Array>([]);
-    const [ statuses, setStatuses] = useState<Array>([])
-    const [coa, setCoa] = useState<Array>([]);
-    const [costCenter, setCostCenter] = useState<Array>([]);
-    const [annaliticAccount, setAnnaliticAccount] = useState<Array>([]);
+    const [users, setUsers] = useState([]);
+    const [typePengajuan, setTypePengajuan] = useState([]);
+    const [ statuses, setStatuses] = useState([])
+    const [coa, setCoa] = useState([]);
+    const [costCenter, setCostCenter] = useState([]);
+    const [annaliticAccount, setAnnaliticAccount] = useState([]);
 
     useEffect(()=>{
         getUser()

@@ -6,7 +6,7 @@ import clsx from "clsx";
 import _ from "lodash";
 import axios from "axios";
 
-const Informasi = (props) => {
+const Informasi = (props : any) => {
     const {typePengajuans, changeType, type, dataPengajuanAll} = props;
 
     console.log(dataPengajuanAll, "data pengajuan all");
@@ -25,7 +25,7 @@ const Informasi = (props) => {
                 <div 
                     className="grid grid-cols-12 gap-4 py-1 divide-x divide-y box xl:py-5 xl:divide-y-0 divide-dashed divide-slate-200 dark:divide-white/5"
                     >
-                    {typePengajuans.map((data, index)=>(
+                    {typePengajuans.map((data : any, index : any)=>(
                         <div
                         className={clsx([
                             "relative col-span-12 px-5 py-5 xl:py-0 sm:col-span-4 xl:col-span-4 cursor-pointer",

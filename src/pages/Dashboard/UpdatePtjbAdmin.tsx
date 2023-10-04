@@ -8,7 +8,11 @@ import UpdatePtjb from './attribute/UpdatePtjb'
 
 const UpdatePtjbAdmin = () => {
   const {id} = useParams();
-  const [ptjb, setPtjb] = useState([])
+
+  interface Data {
+    id?:any;
+  }
+  const [ptjb, setPtjb] = useState<Data>({})
 
   useEffect(()=>{
     getPtjb();

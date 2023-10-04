@@ -3,7 +3,7 @@ import darkModeReducer from "./darkModeSlice";
 import colorSchemeReducer from "./colorSchemeSlice";
 import sideMenuReducer from "./sideMenuSlice";
 
-import authSlice from './features/authSlice.ts';
+import authSlice from './features/authSlice';
 import daftarSlice from "./features/daftarSlice";
 import pengajuanSlice from "./features/pengajuanSlice";
 import ptjbSlice from "./features/ptjbSlice";
@@ -19,7 +19,7 @@ export const store = configureStore({
     pengajuanReducer: pengajuanSlice,
     ptjbReducer: ptjbSlice,
     usersReducer : userSlice
-  },
+  }
 });
 
 export type AppDispatch = typeof store.dispatch;

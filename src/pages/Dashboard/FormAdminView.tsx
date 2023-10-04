@@ -10,9 +10,13 @@ import DataPtjb from "./attribute/DataPtjb";
 
 function Main() {
     const {id} = useParams();
-    const [dataPengajuan, setDataPengajuan] = useState<Array>([]);
-    const [status, setStatus] = useState<Array>([]);
-    const [statuses, setStatuses] = useState<Array>([]);
+    interface Data {
+      status?:any;
+      ptjbs?:any;
+    }
+    const [dataPengajuan, setDataPengajuan] = useState<Data>({});
+    const [status, setStatus] = useState([]);
+    const [statuses, setStatuses] = useState([]);
 
     useEffect(()=>{
         getDataPengajuan();

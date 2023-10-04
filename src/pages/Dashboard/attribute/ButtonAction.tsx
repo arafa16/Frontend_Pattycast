@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from "../../../base-components/Button";
 import {useNavigate} from 'react-router-dom'
-const ButtonAction = (props) => {
+const ButtonAction = (props : any) => {
     const {linkEdit, linkBack, linkCreatePtjb} = props;
     const navigate = useNavigate();
 

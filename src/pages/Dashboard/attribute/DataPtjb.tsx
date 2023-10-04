@@ -3,12 +3,12 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
 
-const DataPtjb = (props) => {
+const DataPtjb = (props : any) => {
     const {dataPtjb} = props;
     const jmlData = dataPtjb && dataPtjb.length;
     const navigate = useNavigate();
 
-    const clickView = (id) => {
+    const clickView = (id : any) => {
         navigate(`/viewPtjbAdmin/${id}`);
     }
 
@@ -19,7 +19,7 @@ const DataPtjb = (props) => {
                     Data PTJB
                 </div>
                 <div className="overflow-x-auto sm:overflow-x-visible">
-                    {dataPtjb && dataPtjb.map((data, index) => (
+                    {dataPtjb && dataPtjb.map((data : any, index : any) => (
                     <div 
                         key={index} 
                         className="intro-y"

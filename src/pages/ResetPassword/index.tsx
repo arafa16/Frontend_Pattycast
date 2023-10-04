@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {useNavigate, Link} from 'react-router-dom';
+import {useNavigate, Link, useParams} from 'react-router-dom';
 import {RegisterUser, reset} from "../../stores/features/authSlice";
 
 import LoadingIcon from "../../base-components/LoadingIcon";
@@ -12,41 +12,51 @@ import DarkModeSwitcher from "../../components/DarkModeSwitcher";
 import MainColorSwitcher from "../../components/MainColorSwitcher";
 import Button from "../../base-components/Button";
 import { FormInput, FormCheck } from "../../base-components/Form";
+import axios from "axios";
 
 function Main() {
-  const [name, setName] = useState("");
+  const {token} = useParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confPassword, setConfPassword] = useState("");
   const [msg, setMsg] = useState("");
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const {isError, isSuccess, isLoading, message} = useSelector(
-      (state :any) => state.auth
-  );
-
   // Basic non sticky notification
   const basicNonStickyNotification = useRef<NotificationElement>();
 
   useEffect(()=>{
-    if(isSuccess){
+    takeToken();
+  },[]);
+
+  const takeToken = async() => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/reset/${token}`);
+      console.log(response);
+      setEmail(response.data.email)
+    } catch (error : any) {
+      console.log(error.response.data.msg.name);
+      setMsg(error.response.data.msg.name)
       basicNonStickyNotification.current?.showToast();
-      setMsg(message.msg);
-      dispatch(reset());
-      resetValue();
     }
-  },[isSuccess]);
-
-  const resetValue = () => {
-    setName("");
-    setEmail("");
-    setPassword("");
   }
 
-  const Register = (e : any) => {
+  const resetPassword = async(e : any) => {
     e.preventDefault();
-    dispatch(RegisterUser({name, email, password}));
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/reset/${token}`,{
+        password:password,
+        confPassword:confPassword
+      });
+      console.log(response);
+      setMsg(response.data.msg)
+      basicNonStickyNotification.current?.showToast();
+    } catch (error) {
+      console.log(error);
+      // setMsg(error.response.data.msg.name)
+      basicNonStickyNotification.current?.showToast();
+    }
+
   }
+
 
   return (
     <>
@@ -76,31 +86,33 @@ function Main() {
                 alt="Rocketman - Tailwind HTML Admin Template"
                 src={logoUrl}
               />
-              <form onSubmit={Register}>
+              <form onSubmit={resetPassword}>
                 <FormInput
                   type="text"
-                  className="block px-4 py-3"
-                  placeholder="Name"
-                  value={name}
-                  onChange={(e : any)=>setName(e.target.value)}
-                />
-                <FormInput
-                  type="email"
                   className="block px-4 py-3 mt-4"
-                  placeholder="Email"
+                  placeholder=""
+                  disabled
                   value={email}
-                  onChange={(e : any)=>setEmail(e.target.value)}
+                  onChange={(e)=>setEmail(e.target.value)}
                 />
                 <FormInput
                   type="password"
                   className="block px-4 py-3 mt-4"
                   placeholder="Password"
                   value={password}
-                  onChange={(e : any)=>setPassword(e.target.value)}
+                  onChange={(e)=>setPassword(e.target.value)}
+                />
+                <FormInput
+                  type="password"
+                  className="block px-4 py-3 mt-4"
+                  placeholder="Confirmation Password"
+                  value={confPassword}
+                  onChange={(e)=>setConfPassword(e.target.value)}
                 />
                 <div className="mt-5 text-center xl:mt-8 xl:text-left">
                   <Button type="submit" variant="primary" className="w-full xl:mr-3">
-                    {isLoading ? <LoadingIcon icon="ball-triangle" color="white" className="w-5 h-5" /> : 'Register'}
+                    {/* {isLoading ? <LoadingIcon icon="ball-triangle" color="white" className="w-5 h-5" /> : 'Register'} */}
+                    Reset Password
                   </Button>
                 </div>
                 <div className="flex justify-between mt-4 px-2 text-xs text-slate-500 sm:text-sm">

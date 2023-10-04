@@ -16,6 +16,7 @@ import UpdateUser from "../pages/Users/UpdateUser";
 import PtjbFormUser from "../pages/Pengajuan/PtjbFormUser";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import ResetPassword from "../pages/ResetPassword";
 import ViewPtjbUser from "../pages/Pengajuan/ViewPtjbUser";
 import UpdatePtjbUser from "../pages/Pengajuan/UpdatePtjbUser";
 import ViewPtjbAdmin from "../pages/Dashboard/ViewPtjbAdmin";
@@ -24,7 +25,7 @@ import ExportData from "../pages/Export/ExportData";
 import Coa from "../pages/Coa/Coa";
 import FormCreate from "../pages/Coa/FormCreate";
 import FormUpdateCoa from "../pages/Coa/FormUpdateCoa";
-import ViewCoa from "../pages/Coa/viewCoa";
+import ViewCoa from "../pages/Coa/ViewCoa";
 import TypePengajuan from "../pages/TypePengajuan/TypePengajuan";
 import ViewTypePengajuan from "../pages/TypePengajuan/ViewTypePengajuan";
 import UpdateTypePengajuan from "../pages/TypePengajuan/UpdateTypePengajuan";
@@ -41,6 +42,7 @@ import StatusPengajuan from "../pages/StatusPengajuan/StatusPengajuan";
 import FormStatusPengajuan from "../pages/StatusPengajuan/FormStatusPengajuan";
 import ViewStatusPengajaun from "../pages/StatusPengajuan/ViewStatusPengajaun";
 import UpdateStatusPengajaun from "../pages/StatusPengajuan/UpdateStatusPengajaun";
+import SendReset from "../pages/ResetPassword/SendReset";
 
 function Router() {
   const routes = [
@@ -221,6 +223,14 @@ function Router() {
     {
       path: "/register",
       element: <Register />,
+    },
+    {
+      path: "/reset/:token",
+      element: <ResetPassword />
+    },
+    {
+      path: "/sendReset",
+      element: <SendReset />
     }
   ];
 

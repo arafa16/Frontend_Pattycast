@@ -19,7 +19,7 @@ const Main = () => {
 
   //pengajuan reducer
   const {pengajuans, isPengajuanError, isPengajuanSuccess, isPengajuanLoading, messagePengajuan } = useSelector(
-    (state) => state.pengajuanReducer
+    (state : any) => state.pengajuanReducer
   );
 
   useEffect(()=>{
@@ -37,11 +37,17 @@ const Main = () => {
   },[isPengajuanSuccess, isPengajuanLoading, isPengajuanError]);
 
   const getPengajuan = () => {
-    dispatch(GetPengajuanByUser({limit, page, search}));
+    dispatch(GetPengajuanByUser({
+      limit, 
+      page, 
+      search,
+      type: 0,
+      status: 0
+    }));
   }
 
   //hitung total page
-  const countPage = (jmlData) => {
+  const countPage = (jmlData : any) => {
     const total = jmlData/limit;
     setAllPage(Math.ceil(total));
   }
@@ -60,10 +66,10 @@ const Main = () => {
     }
   }
 
-  const changeSearch = (code) => {
+  const changeSearch = (code :any) => {
     setSearch(code);
     setPage(1);
-    setType(0);
+    // setType(0);
   }
 
   return (

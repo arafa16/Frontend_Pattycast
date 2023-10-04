@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 import { FormCheck, FormInput } from "../../../base-components/Form";
 import LoadingIcon from "../../../base-components/LoadingIcon";
 
-const Data = (props) => {
+const Data = (props : any) => {
     const {dataPengajuans, limit, page, allPage, allData, nextPage, prevPage, dataStatus, changeStatus, status, loading, changeSearch, search} = props;
     const navigate = useNavigate();
     console.log(dataPengajuans, 'dataStatus');
@@ -28,7 +28,7 @@ const Data = (props) => {
                         All
                         {loading ? <LoadingIcon icon="ball-triangle" color="white" className="w-3 h-5 mx-5" /> : ''}
                     </div>
-                    {dataStatus.map((data, index)=>(
+                    {dataStatus.map((data : any, index : any)=>(
                         <div
                             onClick={()=>changeStatus(data.code)}
                             key={index}
@@ -99,7 +99,7 @@ const Data = (props) => {
                     </div>
                 </div>
                 <div className="overflow-x-auto sm:overflow-x-visible">
-                    {dataPengajuans && dataPengajuans.map((data, index) => (
+                    {dataPengajuans && dataPengajuans.map((data : any, index : any) => (
                     <div 
                         key={index} 
                         className="intro-y"

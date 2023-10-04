@@ -2,11 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface variabel {
-    pengajuans: Array;
+    pengajuans: any;
     isPengajuanError: boolean;
     isPengajuanSuccess: boolean;
     isPengajuanLoading: boolean;
-    messagePengajuan: string;
+    messagePengajuan: any;
 }
 
 const initialState : variabel = {
@@ -18,22 +18,23 @@ const initialState : variabel = {
 }
 
 interface varPengajuans {
-    tanggal: Date;
+    tanggal: String;
     expense: String;
     advance: String;
-    coaId: Number;
-    costCenterId: Number;
-    annaliticAccountId: Number;
-    debit: Number;
-    credit: Number;
+    coaId: String;
+    costCenterId: String;
+    annaliticAccountId: String;
+    debit: String;
+    credit: String;
     reference: String;
     keterangan: String;
-    typePengajuanId: Number;
-    userId: Number;
-    statusId: Number;
+    typePengajuanId: String;
+    userId: String;
+    statusId: String;
+    id: any;
 }
 
-export const SubmitPengajuan = createAsyncThunk("pengajuans/submitPengajuan", async(pengajuans : varPengajuans, thunkAPI) => {
+export const SubmitPengajuan  : any = createAsyncThunk("pengajuans/submitPengajuan", async(pengajuans : varPengajuans, thunkAPI) => {
     console.log(pengajuans, "sampai di pengajuan");
 
     try {
@@ -55,7 +56,7 @@ export const SubmitPengajuan = createAsyncThunk("pengajuans/submitPengajuan", as
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error : void) {
+    } catch (error : any) {
         if(error.response){
             const message = error.response.data;
             console.log(message);
@@ -64,8 +65,24 @@ export const SubmitPengajuan = createAsyncThunk("pengajuans/submitPengajuan", as
     }
 });
 
-export const UpdatePengajuan = createAsyncThunk("pengajuans/UpdatePengajuan", async(pengajuans : varPengajuans, thunkAPI) => {
-    console.log(pengajuans, "sampai di pengajuan");
+interface varUpdate {
+    tanggal: String;
+    coaId: String;
+    costCenterId: String;
+    expense: String,
+    advance: String,
+    annaliticAccountId: String;
+    debit: String;
+    credit: String;
+    reference: String;
+    keterangan: String;
+    typePengajuanId: String;
+    userId: String;
+    statusId: String;
+    id: any;
+}
+
+export const UpdatePengajuan  : any = createAsyncThunk("pengajuans/UpdatePengajuan", async(pengajuans : varUpdate, thunkAPI) => {
 
     try {
         const response = await axios.patch(import.meta.env.VITE_REACT_APP_API_URL+'/pengajuans/'+pengajuans.id, {
@@ -86,7 +103,7 @@ export const UpdatePengajuan = createAsyncThunk("pengajuans/UpdatePengajuan", as
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error : void) {
+    } catch (error : any) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
@@ -94,7 +111,16 @@ export const UpdatePengajuan = createAsyncThunk("pengajuans/UpdatePengajuan", as
     }
 });
 
-export const GetPengajuan = createAsyncThunk("pengajuans/GetPengajuan", async(pengajuans, thunkAPI) => {
+interface varGet {
+    limit: number;
+    page: number;
+    type: number;
+    status: number;
+    search: any;
+    id: any;
+}
+
+export const GetPengajuan  : any = createAsyncThunk("pengajuans/GetPengajuan", async(pengajuans : varGet, thunkAPI) => {
     console.log(pengajuans, "sampai di pengajuan");
 
     try {
@@ -102,7 +128,7 @@ export const GetPengajuan = createAsyncThunk("pengajuans/GetPengajuan", async(pe
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error : void) {
+    } catch (error : any) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
@@ -110,7 +136,15 @@ export const GetPengajuan = createAsyncThunk("pengajuans/GetPengajuan", async(pe
     }
 });
 
-export const GetPengajuanByUser = createAsyncThunk("pengajuans/GetPengajuanByUser", async(pengajuans, thunkAPI) => {
+interface varGetByUser {
+    limit: number;
+    page: number;
+    type: number;
+    status: number;
+    search: any;
+}
+
+export const GetPengajuanByUser : any = createAsyncThunk("pengajuans/GetPengajuanByUser", async(pengajuans : varGetByUser, thunkAPI) => {
    
     const findUserLogin = await axios.get(import.meta.env.VITE_REACT_APP_API_URL+'/me',{
         withCredentials: true, // Now this is was the missing piece in the client side 
@@ -121,7 +155,7 @@ export const GetPengajuanByUser = createAsyncThunk("pengajuans/GetPengajuanByUse
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error : void) {
+    } catch (error : any) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);

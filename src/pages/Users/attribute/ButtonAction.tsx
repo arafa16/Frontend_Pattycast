@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from "../../../base-components/Button";
-const ButtonAction = (props) => {
+const ButtonAction = (props : any) => {
     const {clickBack, clickDelete, clickUpdate, setViewModal} = props;
     return (
         <>

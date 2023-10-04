@@ -14,7 +14,7 @@ const FormPtjb = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const {dataPtjb, isDataPtjbError, isDataPtjbSuccess, isDataPtjbLoading, messageDataPtjb} = useSelector((state) => state.ptjbReducer);
+    const {dataPtjb, isDataPtjbError, isDataPtjbSuccess, isDataPtjbLoading, messageDataPtjb} = useSelector((state : any) => state.ptjbReducer);
 
     useEffect(()=>{
         if(isDataPtjbSuccess && messageDataPtjb){
@@ -29,7 +29,7 @@ const FormPtjb = () => {
         id:any;
     }
 
-    const submitPengajuan = (e) => {
+    const submitPengajuan = (e : any) => {
         e.preventDefault();
         dispatch(SubmitPtjb({
             nominal,
@@ -51,7 +51,7 @@ const FormPtjb = () => {
                                     id="nominal"
                                     type="number"
                                     value={nominal}
-                                    onChange={(e)=>setNominal(e.target.value)}
+                                    onChange={(e : any)=>setNominal(e.target.value)}
                                     placeholder=""
                                 />
                             </div>
@@ -61,7 +61,7 @@ const FormPtjb = () => {
                                     id="keterangan"
                                     type="text"
                                     value={keterangan}
-                                    onChange={(e)=>setKeterangan(e.target.value)}
+                                    onChange={(e : any)=>setKeterangan(e.target.value)}
                                     placeholder=""
                                 />
                             </div>

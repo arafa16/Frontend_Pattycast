@@ -6,17 +6,17 @@ import LoadingIcon from '../../../base-components/LoadingIcon'
 import { useDispatch, useSelector } from 'react-redux';
 import { UpdatePtjbRedux, resetPtjb } from '../../../stores/features/ptjbSlice';
 
-const UpdatePtjb = (props) => {
+const UpdatePtjb = (props : any) => {
     const {ptjb} = props;
     const {id} = useParams();
 
-    const [nominal, setNominal] = useState('');
+    const [nominal, setNominal] = useState<number>();
     const [keterangan, setKeterangan] = useState('');
     
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const {dataPtjb, isDataPtjbError, isDataPtjbSuccess, isDataPtjbLoading, messageDataPtjb} = useSelector((state) => state.ptjbReducer);
+    const {dataPtjb, isDataPtjbError, isDataPtjbSuccess, isDataPtjbLoading, messageDataPtjb} = useSelector((state : any) => state.ptjbReducer);
 
     useEffect(()=>{
         if(isDataPtjbSuccess && messageDataPtjb){
@@ -34,7 +34,7 @@ const UpdatePtjb = (props) => {
         setKeterangan(ptjb.keterangan);
     }
 
-    const updatePtjb = (e) => {
+    const updatePtjb = (e : any) => {
         e.preventDefault();
         dispatch(UpdatePtjbRedux({
             nominal,
@@ -54,7 +54,7 @@ const UpdatePtjb = (props) => {
                         id="nominal"
                         type="number"
                         defaultValue={nominal}
-                        onChange={(e)=>setNominal(e.target.value)}
+                        onChange={(e : any)=>setNominal(e.target.value)}
                         placeholder=""
                     />
                 </div>
@@ -64,7 +64,7 @@ const UpdatePtjb = (props) => {
                         id="keterangan"
                         type="text"
                         defaultValue={keterangan}
-                        onChange={(e)=>setKeterangan(e.target.value)}
+                        onChange={(e : any)=>setKeterangan(e.target.value)}
                         placeholder=""
                     />
                 </div>

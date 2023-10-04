@@ -5,7 +5,7 @@ import Lucide from '../../../base-components/Lucide';
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 
-const TableUser = (props) => {
+const TableUser = (props : any) => {
     const {users, changeStatus, status, limit, page, allPage, nextPage, prevPage, search, setSearch, allData} = props;
     const navigate = useNavigate();
     
@@ -69,7 +69,7 @@ const TableUser = (props) => {
                     </div>
                 </div>
                 <div className="overflow-x-auto sm:overflow-x-visible">
-                    {users && users.map((data, index) => (
+                    {users && users.map((data : any, index : any) => (
                     <div 
                         key={index} 
                         className="intro-y"

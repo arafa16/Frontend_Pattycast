@@ -10,12 +10,12 @@ import { DeletePtjbRedux, resetPtjb } from '../../stores/features/ptjbSlice';
 
 const ViewPtjbUser = () => {
   const {id} = useParams();
-  const [ptjb, setPtjb] = useState([])
+  const [ptjb, setPtjb] = useState<any>([])
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {dataPtjb, isDataPtjbError, isDataPtjbSuccess, isDataPtjbLoading, messageDataPtjb} = useSelector((state) => state.ptjbReducer);
+  const {dataPtjb, isDataPtjbError, isDataPtjbSuccess, isDataPtjbLoading, messageDataPtjb} = useSelector((state : any) => state.ptjbReducer);
 
   useEffect(()=>{
     getPtjb();
@@ -33,7 +33,7 @@ const ViewPtjbUser = () => {
     setPtjb(response.data);
   }
 
-  const clickDelete = async() => {
+  const clickDelete = async(dispatch : any) => {
     dispatch(DeletePtjbRedux({id}));
   }
 

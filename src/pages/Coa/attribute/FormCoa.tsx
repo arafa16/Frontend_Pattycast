@@ -12,7 +12,7 @@ const FormCoa = () => {
 
     const navigate = useNavigate();
 
-    const createCoa = async(e) => {
+    const createCoa = async(e : any) => {
         e.preventDefault();
         await axios.post(import.meta.env.VITE_REACT_APP_API_URL+"/coa",{
             name:name,

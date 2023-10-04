@@ -21,7 +21,7 @@ const Form = () => {
     const [msg, setMsg] = useState('');
 
     const {dataUser, isDataUserSuccess, isDataUserError, isDataUserLoading, messageDataUser} = useSelector(
-        (state) => state.daftar
+        (state : any) => state.daftar
     )
 
     const navigate = useNavigate();
@@ -40,14 +40,15 @@ const Form = () => {
         }
     },[isDataUserSuccess, messageDataUser]);
 
-    const submitPendaftaran = (e) => {
+    const submitPendaftaran = (e : any) => {
         e.preventDefault();
         dispatch(PendaftaranUser({
             name,
             email,
             password,
             isAdmin,
-            isActive
+            isActive,
+            id: undefined
         }));
     };
 
@@ -79,7 +80,7 @@ const Form = () => {
                                 type="text"
                                 value={name}
                                 required
-                                onChange={(e)=>setName(e.target.value)}
+                                onChange={(e : any)=>setName(e.target.value)}
                                 placeholder=""
                             />
                         </div>
@@ -90,7 +91,7 @@ const Form = () => {
                                 type="text"
                                 value={email}
                                 required
-                                onChange={(e)=>setEmail(e.target.value)}
+                                onChange={(e : any)=>setEmail(e.target.value)}
                                 placeholder=""
                             />
                         </div>
@@ -101,7 +102,7 @@ const Form = () => {
                                 type="password"
                                 value={password}
                                 required
-                                onChange={(e)=>setPassword(e.target.value)}
+                                onChange={(e : any)=>setPassword(e.target.value)}
                                 placeholder=""
                             />
                         </div>
@@ -110,7 +111,7 @@ const Form = () => {
                             <FormSelect 
                                 value={isAdmin}
                                 required 
-                                onChange={(e)=>setIsAdmin(e.target.value)} 
+                                onChange={(e : any)=>setIsAdmin(e.target.value)} 
                                 id="isAdmin"
                                 >
                                 <option></option>
@@ -123,7 +124,7 @@ const Form = () => {
                             <FormSelect 
                                 value={isActive}
                                 required 
-                                onChange={(e)=>setIsActive(e.target.value)} 
+                                onChange={(e : any)=>setIsActive(e.target.value)} 
                                 id="isActive"
                                 >
                                 <option></option>

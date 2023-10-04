@@ -2,11 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface variabel {
-    dataUser: Array;
+    dataUser: any;
     isDataUserError: boolean;
     isDataUserSuccess: boolean;
     isDataUserLoading: boolean;
-    messageDataUser: string;
+    messageDataUser: any;
 }
 
 const initialState : variabel = {
@@ -21,11 +21,12 @@ interface varDataUser {
     name: String;
     email: String;    
     password: String;
-    isAdmin: boolean;
-    isActive: boolean;
+    isAdmin: any;
+    isActive: any;
+    id: any;
 }
 
-export const PendaftaranUser = createAsyncThunk("user/PendaftaranUser", async(dataUser : varDataUser, thunkAPI) => {
+export const PendaftaranUser  : any = createAsyncThunk("user/PendaftaranUser", async(dataUser : varDataUser, thunkAPI) => {
     try {
         const response = await axios.post(import.meta.env.VITE_REACT_APP_API_URL+'/users/admin', {
             name: dataUser.name,
@@ -37,7 +38,7 @@ export const PendaftaranUser = createAsyncThunk("user/PendaftaranUser", async(da
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error) {
+    } catch (error : any) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
@@ -45,7 +46,12 @@ export const PendaftaranUser = createAsyncThunk("user/PendaftaranUser", async(da
     }
 });
 
-export const UpdatePassword = createAsyncThunk("user/UpdatePassword", async(dataUser : varDataUser, thunkAPI) => {
+interface varUpdatePassword { 
+    password: String;
+    id: any;
+}
+
+export const UpdatePassword  : any = createAsyncThunk("user/UpdatePassword", async(dataUser : varUpdatePassword, thunkAPI) => {
     try {
         const response = await axios.patch(`${import.meta.env.VITE_REACT_APP_API_URL}/users/${dataUser.id}/password`, {
             password: dataUser.password
@@ -53,7 +59,7 @@ export const UpdatePassword = createAsyncThunk("user/UpdatePassword", async(data
             withCredentials: true, // Now this is was the missing piece in the client side 
         });
         return response.data;
-    } catch (error) {
+    } catch (error : any) {
         if(error.response){
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
@@ -63,7 +69,7 @@ export const UpdatePassword = createAsyncThunk("user/UpdatePassword", async(data
 
 
 
-export const daftarSlice = createSlice({
+export const daftarSlice  = createSlice({
     name: "daftar",
     initialState,
     reducers:{

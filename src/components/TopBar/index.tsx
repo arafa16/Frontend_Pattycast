@@ -6,35 +6,16 @@ import {useNavigate, redirect} from 'react-router-dom';
 import Lucide from "../../base-components/Lucide";
 import Breadcrumb from "../../base-components/Breadcrumb";
 import { Menu } from "../../base-components/Headless";
-import fakerData from "../../utils/faker";
 import imageUser from '../../assets/images/user.png';
 import _ from "lodash";
 import ResetPassword from "../../pages/Users/attribute/ResetPassword";
 
-function Main(props: { toggleMobileMenu: (event: React.MouseEvent) => void }) {
+function Main(props: { toggleMobileMenu: (event: React.MouseEvent) => void, users:any}) {
+  const {users} = props;
+
   const [viewModal, setViewModal] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {users, isError} = useSelector((state) => state.auth);
-  
-
-  useEffect(() => {
-      dispatch(getMe());
-
-  },[]);
-
-  useEffect(() => {
-    // setInterval(()=>{
-      dispatch(getMe());
-      // console.log(isError, 'users');
-    // },5000)
-  },[isError]);
-
-  useEffect(() => {
-    if (isError) {
-      navigate("/login", { replace: true });
-    }
-  }, [isError]);
 
   const getLogOut = () => {
     dispatch(LogOut());
@@ -44,16 +25,16 @@ function Main(props: { toggleMobileMenu: (event: React.MouseEvent) => void }) {
 
 
   // Show search result modal
-  const showSearchResultModal = () => {
-    setSearchResultModal(true);
-  };
+  // const showSearchResultModal = () => {
+  //   setSearchResultModal(true);
+  // };
 
   // On press event (Ctrl+k)
-  document.querySelectorAll("body")[0].onkeydown = (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.which == 75) {
-      setSearchResultModal(true);
-    }
-  };
+  // document.querySelectorAll("body")[0].onkeydown = (e) => {
+  //   if ((e.ctrlKey || e.metaKey) && e.which == 75) {
+  //     setSearchResultModal(true);
+  //   }
+  // };
 
   return (
     <>
