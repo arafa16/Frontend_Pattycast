@@ -19,58 +19,58 @@ const initialState: SideMenuState = {
   menu: [
     "START MENU",
     {
-      icon: "Activity",
+      icon: "FileText",
       pathname: "/pengajuan",
       title: "Pengajuan",
       admin: false,
     },{
-      icon: "Home",
+      icon: "Airplay",
       title: "Dashboard Admin",
       admin: true,
       subMenu: [
         {
-          icon: "Activity",
+          icon: "Layers",
           pathname: "/dashboard",
           title: "Data Pengajuan",
         },
         {
-          icon: "Activity",
+          icon: "Download",
           pathname: "/exportData",
           title: "Export Data",
         },
         {
-          icon: "Activity",
+          icon: "Users",
           pathname: "/dataUser",
           title: "Data User",
         }
       ],
     },{
-      icon: "Home",
+      icon: "Settings",
       title: "Setting",
       admin: true,
       subMenu: [
         {
-          icon: "Activity",
+          icon: "Edit3",
           pathname: "/coa",
           title: "Coa"
         },
         {
-          icon: "Activity",
+          icon: "Edit3",
           pathname: "/typePengajuan",
           title: "Type Pengajuan",
         },
         {
-          icon: "Activity",
+          icon: "Edit3",
           pathname: "/costCenter",
           title: "Cost Center",
         },
         {
-          icon: "Activity",
+          icon: "Edit3",
           pathname: "/annaliticAccount",
           title: "Annalitic Account",
         },
         {
-          icon: "Activity",
+          icon: "Edit3",
           pathname: "/statusPengajuan",
           title: "Status Pengajuan",
         }
